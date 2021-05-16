@@ -11,7 +11,7 @@ function HomepageBanner() {
   const renderImages = () => {
     return images.map(({ url }, index) => {
       return (
-        <div key={url} className={`banner__image_${index + 1}`}>
+        <div key={url} className={`banner_image banner__image_${index + 1}`}>
           <img
             src={`/assets/images/${url}`}
             className="banner__image"

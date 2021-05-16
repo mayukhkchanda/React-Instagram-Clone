@@ -24,7 +24,7 @@ function HomepageCommunity() {
               We're committed to fostering a safe and supportive community for
               everyone.
             </h2>
-            <HomepageButton />
+            <HomepageButton btnText="Community" />
           </div>
         </div>
       </div>

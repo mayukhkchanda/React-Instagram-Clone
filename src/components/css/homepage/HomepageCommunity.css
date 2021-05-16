@@ -29,3 +29,11 @@
 .community-text .button-text:hover {
   color: #fafafa;
 }
+
+@media screen and (max-width: 793px) {
+  .community-text {
+    max-width: 350px;
+    top: 54%;
+    left: 6%;
+  }
+}

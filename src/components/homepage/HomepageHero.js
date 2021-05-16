@@ -2,7 +2,15 @@ import React from "react";
 import "../css/homepage/HomepageHero.css";
 import HomepageButton from "./HomepageButton";
 
-function HomepageHero({ url, alt, showIcons, flipped }) {
+function HomepageHero({
+  url,
+  alt,
+  showIcons,
+  flipped,
+  paraText,
+  headerText,
+  btnText,
+}) {
   return (
     <div
       data-scroll-section
@@ -208,11 +216,9 @@ function HomepageHero({ url, alt, showIcons, flipped }) {
       </div>
 
       <div className="text-container">
-        <p>EXPLORE WHAT'S NEW</p>
-        <h2>
-          Express yourself in new ways with the latest Instagram features.
-        </h2>
-        <HomepageButton />
+        <p>{paraText}</p>
+        <h2>{headerText}</h2>
+        <HomepageButton btnText={btnText} />
       </div>
     </div>
   );

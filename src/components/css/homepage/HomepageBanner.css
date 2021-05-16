@@ -24,8 +24,6 @@
 .banner__header {
   font-family: "Roboto", sans-serif;
   font-weight: 400;
-  letter-spacing: -1px;
-
   font-size: calc(44px + (16 * ((100vw - 375px) / 1225)));
   letter-spacing: -1px;
   line-height: calc(56px + (8 * ((100vw - 375px) / 1225)));
@@ -96,4 +94,36 @@
   height: 120px;
   background: #fff;
   width: 100%;
+}
+
+@media all and (max-width: 793px) {
+  .banner__header--container {
+    left: 16vw;
+    width: 80vw;
+    max-width: 700px;
+    padding-top: calc(0.475vw + 130px);
+  }
+
+  .banner__header {
+    font-size: calc(48px + (8 * ((100vw - 375px) / 1225)));
+    line-height: calc(50px + (8 * ((100vw - 375px) / 1225)));
+  }
+
+  .banner__images--container {
+    display: flex;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    width: 100vw;
+  }
+
+  .banner_image {
+    position: relative;
+    left: unset;
+    height: 310px;
+    width: 394px;
+    top: unset;
+    margin: 0px 10px;
+    max-width: unset;
+    min-width: 71vw;
+  }
 }

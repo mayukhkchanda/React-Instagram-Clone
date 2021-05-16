@@ -1,7 +1,7 @@
 import React from "react";
 import "../css/homepage/HomepageButton.css";
 
-function HomepageButton() {
+function HomepageButton({ btnText }) {
   return (
     <a
       href="#"
@@ -18,7 +18,7 @@ function HomepageButton() {
         src="https://static.xx.fbcdn.net/rsrc.php/yZ/r/Sls_tmeuSGE.svg"
         alt=""
       />
-      <span className="button-text">Business</span>
+      <span className="button-text">{btnText}</span>
     </a>
   );
 }

@@ -2,18 +2,27 @@
     { 
         "url" : "https://scontent.fccu3-1.fna.fbcdn.net/v/t39.8562-6/119782640_3616972558353330_7440519559206697285_n.jpg?_nc_cat=110&ccb=1-3&_nc_sid=6825c5&_nc_ohc=UwMJnmGrak0AX-fAkBl&_nc_ht=scontent.fccu3-1.fna&oh=2c217c9f22059d21d57fd8f8bc14e7a5&oe=60C58AF5",
         "alt" : "filters",
+        "paraText" : "EXPLORE WHAT'S NEW",
+        "headerText": "Express yourself in new ways with the latest Instagram features.",
+        "btnText" : "Features",
         "showIcons" : true,
         "flipped" : false
     },
     { 
         "url" : "https://scontent.fccu3-1.fna.fbcdn.net/v/t39.8562-6/94225111_231636688063841_5944941045035827200_n.jpg?_nc_cat=100&ccb=1-3&_nc_sid=6825c5&_nc_ohc=mbZQnEcIuN4AX_zfoTw&_nc_ht=scontent.fccu3-1.fna&oh=1dd21f7467ac8eb3c01c80f78f39530c&oe=60C6A6FA" ,
         "alt" : "sea-beach",
+        "paraText" : "STAND OUT ON INSTAGRAM",
+        "headerText": "Connect with more people, build influence, and create compelling content that's distinctly yours.",
+        "btnText" : "Creators",
         "showIcons" : false,
         "flipped" : true
     },
     { 
         "url" : "https://scontent.fccu3-1.fna.fbcdn.net/v/t39.8562-6/119710604_2888832251393601_9204701282333338993_n.jpg?_nc_cat=110&ccb=1-3&_nc_sid=6825c5&_nc_ohc=_OB89GZYQPUAX_2m0Jp&_nc_ht=scontent.fccu3-1.fna&oh=ab2edbbda3a5734984c6e0bc87d3b7ea&oe=60C6BFB0",
         "alt" : "earings",
+        "paraText" : "GROW WITH US",
+        "headerText": "Share and grow your brand with our diverse, global community.",
+        "btnText" : "Business",
         "showIcons" : false,
         "flipped" : false
     }

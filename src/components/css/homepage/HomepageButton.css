@@ -44,3 +44,12 @@
 .rainbow-button:hover .button-text {
   color: #fafafa;
 }
+
+@media screen and (max-width: 793px) {
+  .image {
+    width: 164px;
+  }
+  .button-text {
+    margin-left: 42px;
+  }
+}

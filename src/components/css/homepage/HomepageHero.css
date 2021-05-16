@@ -83,3 +83,39 @@
   margin-left: 0;
   left: calc(100px - 27vw);
 }
+
+@media all and (max-width: 793px) {
+  .hero-wrapper {
+    flex-direction: column;
+  }
+
+  .text-container {
+    width: unset;
+    margin-left: calc(15vw - 10px);
+    margin-top: 53px;
+  }
+
+  .text-container h2 {
+    font-size: calc(28px + (12 * ((100vh - 375px) / 1225)));
+    line-height: calc(42px + (10 * ((100vh - 375px) / 1225)));
+  }
+
+  .hero-wrapper.flipped {
+    flex-direction: column;
+  }
+
+  .image-hero-wrapper {
+    left: 6vw;
+  }
+
+  .hero-wrapper.flipped .image-hero-wrapper {
+    left: 6vw;
+    right: unset;
+  }
+
+  .hero-wrapper.flipped .text-container {
+    margin-left: calc(15vw - 10px);
+    left: unset;
+    width: 82%;
+  }
+}

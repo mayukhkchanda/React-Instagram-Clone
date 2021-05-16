@@ -24,17 +24,22 @@ class homepage extends Component {
   } */
 
   renderHeros() {
-    return HeroImages.map(({ url, alt, showIcons, flipped }) => {
-      return (
-        <HomepageHero
-          key={alt}
-          url={url}
-          alt={alt}
-          showIcons={showIcons}
-          flipped={flipped}
-        />
-      );
-    });
+    return HeroImages.map(
+      ({ url, alt, showIcons, flipped, paraText, headerText, btnText }) => {
+        return (
+          <HomepageHero
+            key={alt}
+            url={url}
+            alt={alt}
+            paraText={paraText}
+            headerText={headerText}
+            btnText={btnText}
+            showIcons={showIcons}
+            flipped={flipped}
+          />
+        );
+      }
+    );
   }
 
   render() {

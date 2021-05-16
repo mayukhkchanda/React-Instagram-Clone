@@ -74,3 +74,13 @@
 .login-text:hover {
   background-size: 100% 0.07em;
 }
+
+.login-text:active {
+  background-size: 100% 0.07em;
+}
+
+@media all and (max-width: 793px) {
+  .navbar {
+    width: 93.6vw;
+  }
+}
