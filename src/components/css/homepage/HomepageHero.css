@@ -1,0 +1,85 @@
+* {
+  margin: 0;
+}
+
+.hero-wrapper {
+  display: flex;
+  width: 100%;
+  max-width: 1600px;
+  position: relative;
+  margin: calc(4.5vh + 100px) 0;
+}
+
+.image-hero-wrapper {
+  position: relative;
+  display: flex;
+  left: 14vw;
+  margin-top: 50px;
+  align-items: center;
+}
+
+.icons-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.icon {
+  margin: 15px 45px 15px 0px;
+  cursor: pointer;
+  align-self: center;
+}
+
+.image-container {
+  height: 550px;
+  border-radius: 1pc;
+  overflow: hidden;
+}
+
+.image-container > img {
+  height: 100%;
+}
+
+.text-container {
+  align-self: center;
+  position: relative;
+  max-width: 400px;
+  width: 30vw;
+  margin-left: calc(14vw + 112px);
+}
+
+.text-container p {
+  font-family: Aveny T, Franklin Gothic, Helvetica Neue, Helvetica, Arial,
+    sans-serif;
+  margin-bottom: 19px;
+  font-weight: 700;
+}
+
+.text-container h2 {
+  font-family: Franklin Gothic, Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-weight: 200;
+  font-size: calc(38px + (12 * ((100vh - 375px) / 1225)));
+  line-height: calc(42px + (8 * ((100vh - 375px) / 1225)));
+  margin-bottom: 35px;
+}
+
+.visible {
+  opacity: 1;
+}
+
+.hidden {
+  opacity: 0;
+}
+
+.hero-wrapper.flipped {
+  flex-direction: row-reverse;
+}
+
+.hero-wrapper.flipped .image-hero-wrapper {
+  left: initial;
+  right: calc(100px + 6vw);
+}
+
+.hero-wrapper.flipped .text-container {
+  margin-left: 0;
+  left: calc(100px - 27vw);
+}

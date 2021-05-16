@@ -1,0 +1,46 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.rainbow-button {
+  font-family: Franklin Gothic, Helvetica Neue, Helvetica, Arial, sans-serif;
+
+  position: relative;
+  /*top: 100px;
+  left: 100px;
+  */
+}
+
+.image {
+  position: absolute;
+  width: 170px;
+  opacity: 1;
+  transition: opacity 500ms cubic-bezier(0, 0.61, 0.28, 0.92);
+}
+
+.hover {
+  opacity: 0;
+  transition: opacity 500ms cubic-bezier(0, 0.61, 0.28, 0.92);
+}
+
+.rainbow-button:hover .image {
+  opacity: 0;
+}
+.rainbow-button:hover .hover {
+  opacity: 1;
+}
+
+.button-text {
+  position: absolute;
+  margin-left: 53px;
+  margin-top: 13px;
+  pointer-events: none;
+  color: #141414;
+  transition: color 500ms cubic-bezier(0, 0.61, 0.28, 0.92);
+  font-weight: 700;
+}
+
+.rainbow-button:hover .button-text {
+  color: #fafafa;
+}

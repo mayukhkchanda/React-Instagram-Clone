@@ -11,10 +11,10 @@ function HomepageBanner() {
   const renderImages = () => {
     return images.map(({ url }, index) => {
       return (
-        <div key={url} class={`banner__image_${index + 1}`}>
+        <div key={url} className={`banner__image_${index + 1}`}>
           <img
             src={`/assets/images/${url}`}
-            class="banner__image"
+            className="banner__image"
             alt={url.match(/^[A-Za-z-]+/)[0]}
           />
         </div>
@@ -24,18 +24,18 @@ function HomepageBanner() {
 
   return (
     <>
-      <div class="homepage__banner">
-        <div class="banner__header--container">
-          <h1 class="banner__header">
+      <div data-scroll-section className="homepage__banner">
+        <div className="banner__header--container">
+          <h1 className="banner__header">
             Bringing you closer to the people and things you&nbsp;
-            <span class="purple">
-              <span class="hover-underline">love</span>
+            <span className="purple">
+              <span className="hover-underline">love</span>
             </span>
           </h1>
         </div>
-        <div class="banner__images--container">{renderImages()}</div>
+        <div className="banner__images--container">{renderImages()}</div>
       </div>
-      <div class="white-block"></div>
+      <div className="white-block"></div>
     </>
   );
 }

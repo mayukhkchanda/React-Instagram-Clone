@@ -1,0 +1,31 @@
+.community-text {
+  max-width: 500px;
+  color: #fafafa;
+  position: relative;
+  top: 36%;
+  left: 53%;
+}
+
+.community-para {
+  font-family: Franklin Gothic, Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  letter-spacing: 1px;
+  font-size: 1.115em;
+  margin-bottom: 7px;
+}
+
+.community-header {
+  font-size: calc(26px + (8 * ((100vw - 375px) / 1225)));
+  font-family: Aveny T, Franklin Gothic, Helvetica Neue, Helvetica, Arial,
+    sans-serif;
+  font-weight: 400;
+  margin-bottom: 24px;
+}
+
+.community-text .button-text {
+  color: #fafafa;
+}
+
+.community-text .button-text:hover {
+  color: #fafafa;
+}
