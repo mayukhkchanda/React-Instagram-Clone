@@ -29,59 +29,10 @@ a {
   padding-bottom: 27px;
 }
 
-.Signin form {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 .Signin__form .form__logo {
   width: 170px;
   object-fit: contain;
   margin: 30px 0px;
-}
-
-.Signin .form__input--container {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: left;
-}
-
-.Signin__form .form__input {
-  width: 70%;
-  max-width: 350px;
-  margin-top: 8px;
-  border: 0.01em solid #c2c2c2;
-  outline: none;
-  padding: 9px 6px;
-  font-size: 0.75em;
-}
-
-.form__input:active,
-.form__input:focus {
-  border: 0.01em solid #a2a2a2;
-}
-
-.Signin .form__login {
-  width: 74%;
-  max-width: 350px;
-  margin-top: 15px;
-  padding: 6px;
-  outline: none;
-  border: none;
-  background: #0095f6;
-  color: #fafafa;
-  font-size: 0.85em;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.Signin .form__login:active,
-.form__login:focus {
-  background: rgba(0, 149, 246, 0.7);
 }
 
 .Signin .form__orText {

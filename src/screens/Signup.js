@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./css/Signup.css";
 
 import { Link } from "react-router-dom";
+import Form from "../components/global/Form";
 
 function Signup() {
   return (
@@ -29,40 +30,11 @@ function Signup() {
           <span className="orText__bar"></span>
         </div>
 
-        <form className="form">
-          <label className="form__input--container">
-            {/* <span>Phone number, username, or email</span>  */}
-            <input
-              type="text"
-              className="form__input"
-              placeholder="Mobile Number or Email"
-            />
-          </label>
-          <label className="form__input--container">
-            {/* <span>Password</span>  */}
-            <input
-              type="text"
-              className="form__input"
-              placeholder="Full Name"
-            />
-          </label>
-
-          <label className="form__input--container">
-            {/*  <span>Password</span>  */}
-            <input type="text" className="form__input" placeholder="Username" />
-          </label>
-
-          <label className="form__input--container">
-            {/* <span>Password</span>  */}
-            <input
-              type="Password"
-              className="form__input"
-              placeholder="Password"
-            />
-          </label>
-
-          <input type="submit" value="Sign up" className="form__login" />
-        </form>
+        <Form
+          emailPlaceholder="Email"
+          passwordPlaceholder="Password"
+          submitBtnText="Sign up"
+        />
       </div>
       <div className="Signup__form signin">
         Have an account?&nbsp;

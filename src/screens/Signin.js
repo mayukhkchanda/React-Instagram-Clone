@@ -2,6 +2,7 @@ import React from "react";
 import "./css/Signin.css";
 
 import { Link } from "react-router-dom";
+import Form from "../components/global/Form";
 
 function Signin() {
   return (
@@ -13,21 +14,12 @@ function Signin() {
           className="form__logo"
         />
 
-        <form action="" className="form">
-          <label className="form__input--container">
-            {/*  <span>Phone number, username, or email</span>  */}
-            <input type="text" className="form__input" placeholder="Email" />
-          </label>
-          <label className="form__input--container">
-            {/* <span>Password</span>  */}
-            <input
-              type="password"
-              className="form__input"
-              placeholder="Password"
-            />
-          </label>
-          <input type="submit" value="Log In" className="form__login" />
-        </form>
+        <Form
+          emailPlaceholder="Email"
+          passwordPlaceholder="Password"
+          submitBtnText="Log In"
+        />
+
         <div className="form__orText">
           <span className="orText__bar"></span>
           <span className="grey-text">OR</span>
