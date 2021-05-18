@@ -1,0 +1,185 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+.Signup {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.Signup__form {
+  width: 350px;
+  margin: calc(1vh + 26px) auto;
+  border: 0.01em solid #c2c2c2;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+
+  margin-bottom: 0;
+  padding-bottom: 40px;
+}
+
+.Signup form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Signup__form .form__logo {
+  width: 170px;
+  object-fit: contain;
+  margin: 18px 0px;
+}
+
+.form__input--container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: left;
+}
+
+.Signup__form .form__input {
+  width: 75%;
+  max-width: 400px;
+  margin-top: 8px;
+  border: 0.01em solid #c2c2c2;
+  outline: none;
+  padding: 9px 6px;
+  font-size: 0.75em;
+}
+
+.Signup__form .form__input:active,
+.form__input:focus {
+  border: 0.01em solid #a2a2a2;
+}
+
+.form__login {
+  width: 79%;
+  max-width: 410px;
+  margin-top: 15px;
+  padding: 7px;
+  outline: none;
+  border: none;
+  background: #0095f6;
+  color: #fafafa;
+  font-size: 0.85em;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+}
+
+.form__login:active,
+.form__login:focus {
+  background: rgba(0, 149, 246, 0.7);
+}
+
+.Signup .form__orText {
+  display: flex;
+  align-items: center;
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+
+.grey-text {
+  font-family: helvetica;
+  font-size: 0.8em;
+  font-weight: 600;
+  color: #757575;
+}
+
+.orText__bar {
+  min-width: 106px;
+  height: 0.07em;
+  background: #c2c2c2;
+  margin: 0px 5px;
+}
+
+.form__Fblogin {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 30px;
+  cursor: pointer;
+}
+
+.grey-text.fb-blue {
+  color: #3b5998;
+}
+
+.grey-text.font-bigger {
+  font-size: 0.8em;
+  font-weight: 600;
+}
+
+.grey-text.para-text {
+  width: 83%;
+  max-width: 500px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.975em;
+  margin-bottom: 18px;
+  color: #9e9e9e;
+  letter-spacing: 0.5px;
+}
+
+.fa.fa-facebook-square {
+  pointer-events: none;
+  color: #fafafa;
+  font-size: 1.1em;
+  margin-right: 10px;
+}
+
+.form__forgotPassword {
+  margin-top: 20px;
+  font-size: 0.75em;
+  font-weight: 400;
+  color: #3b5998;
+}
+
+.signin {
+  margin-top: 10px;
+  height: 50px;
+  flex-direction: row;
+  justify-content: center;
+
+  font-size: 0.85em;
+  font-weight: 400;
+  padding-bottom: 0;
+  letter-spacing: 0.5px;
+}
+
+.signin a {
+  font-size: 0.95em;
+  font-weight: 700;
+  color: rgb(0, 149, 246);
+  letter-spacing: 1px;
+}
+
+.blue-background {
+  background: #0095f6;
+  width: 75%;
+  max-width: 400px;
+  padding: 6px 0px;
+  border-radius: 3px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 0;
+  letter-spacing: 0.47px;
+}
+.blue-background span {
+  color: #fafafa !important;
+  font-weight: 400;
+}

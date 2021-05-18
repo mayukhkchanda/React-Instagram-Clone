@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import "../css/homepage/HomepageHeader.css";
 
 function HomepageHeader() {
@@ -38,7 +39,7 @@ function HomepageHeader() {
         <div className={`icon-bar ${RotateBars ? "rotate-down" : ""}`} />
         <div className={`icon-bar ${RotateBars ? "rotate-up" : ""}`} />
       </div>
-      <a href="#" className="instagram-icon">
+      <Link to="/" className="instagram-icon">
         <svg
           alt=""
           width="32px"
@@ -65,10 +66,10 @@ function HomepageHeader() {
             </g>
           </g>
         </svg>
-      </a>
-      <a href="#" className="login-text">
+      </Link>
+      <Link to="/signin" className="login-text">
         Log in
-      </a>
+      </Link>
     </div>
   );
 }
