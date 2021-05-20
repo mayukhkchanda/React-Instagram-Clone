@@ -5,6 +5,10 @@ import { Link } from "react-router-dom";
 import Form from "../components/global/Form";
 
 function Signin() {
+  const onFormSubmit = ({ email, password }) => {
+    console.log(email, " ", password);
+  };
+
   return (
     <div className="Signin">
       <div className="Signin__form">
@@ -18,6 +22,7 @@ function Signin() {
           emailPlaceholder="Email"
           passwordPlaceholder="Password"
           submitBtnText="Log In"
+          onFormSubmit={onFormSubmit}
         />
 
         <div className="form__orText">
