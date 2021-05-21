@@ -26,7 +26,7 @@ function Form({
   return (
     /**Formik Component */
     <Formik
-      initialValues={{ email: "", password: "" }}
+      initialValues={{ username: "", email: "", password: "" }}
       validate={(values) => {
         const errors = {};
 

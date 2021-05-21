@@ -1,21 +1,35 @@
-import React, { useState } from "react";
+import React from "react";
 import "./css/Signup.css";
 
 import { Link } from "react-router-dom";
 import Form from "../components/global/Form";
+import { authenticator } from "../firebase";
 
 function Signup() {
   const onFormSubmit = ({ username, email, password }) => {
-    console.log(username, " ", email, " ", password);
+    authenticator
+      .createUserWithEmailAndPassword(email, password)
+      .then((user) => {
+        if (user) {
+          authenticator.currentUser.updateProfile({
+            displayName: username,
+          });
+        }
+      })
+      .catch((err) => {
+        alert(err.message);
+      });
   };
 
   return (
     <div className="Signup">
       <div className="Signup__form">
-        <img
-          src="https://th.bing.com/th/id/Rff854302b1aeaf008c572d7d015a0317?rik=KH%2b6kyi5Sbtz7g&riu=http%3a%2f%2fwww.edigitalagency.com.au%2fwp-content%2fuploads%2finstagram-logo-text-black-png.png"
-          className="form__logo"
-        />
+        <Link to="/">
+          <img
+            src="https://th.bing.com/th/id/Rff854302b1aeaf008c572d7d015a0317?rik=KH%2b6kyi5Sbtz7g&riu=http%3a%2f%2fwww.edigitalagency.com.au%2fwp-content%2fuploads%2finstagram-logo-text-black-png.png"
+            className="form__logo"
+          />
+        </Link>
 
         <p className="grey-text para-text">
           Sign up to see photos and videos from your friends.

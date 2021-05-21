@@ -3,20 +3,25 @@ import "./css/Signin.css";
 
 import { Link } from "react-router-dom";
 import Form from "../components/global/Form";
+import { authenticator } from "../firebase";
 
 function Signin() {
   const onFormSubmit = ({ email, password }) => {
-    console.log(email, " ", password);
+    authenticator
+      .signInWithEmailAndPassword(email, password)
+      .catch((err) => console.log(err));
   };
 
   return (
     <div className="Signin">
       <div className="Signin__form">
-        <img
-          alt="facebook-logo"
-          src="https://th.bing.com/th/id/Rff854302b1aeaf008c572d7d015a0317?rik=KH%2b6kyi5Sbtz7g&riu=http%3a%2f%2fwww.edigitalagency.com.au%2fwp-content%2fuploads%2finstagram-logo-text-black-png.png"
-          className="form__logo"
-        />
+        <Link to="/">
+          <img
+            alt="facebook-logo"
+            src="https://th.bing.com/th/id/Rff854302b1aeaf008c572d7d015a0317?rik=KH%2b6kyi5Sbtz7g&riu=http%3a%2f%2fwww.edigitalagency.com.au%2fwp-content%2fuploads%2finstagram-logo-text-black-png.png"
+            className="form__logo"
+          />
+        </Link>
 
         <Form
           emailPlaceholder="Email"
