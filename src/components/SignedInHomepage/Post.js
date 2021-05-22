@@ -17,8 +17,7 @@ function Post() {
 
       <div className="post_caption">
         <h3>
-          {" "}
-          <strong>Mayukh</strong> hello world{" "}
+          <strong>Mayukh</strong> hello world
         </h3>
       </div>
     </div>

@@ -6,7 +6,8 @@ import Signin from "./screens/Signin";
 import SignedInHomepage from "./screens/SignedInHomepage";
 import { authenticator } from "./firebase";
 
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { Router, Route, Switch } from "react-router-dom";
+import history from "./history";
 
 import { signin, signout } from "./actions";
 import { connect } from "react-redux";
@@ -35,7 +36,7 @@ const App = ({ User, signin, signout }) => {
   }, []);
 
   return (
-    <BrowserRouter>
+    <Router history={history}>
       <div className="app">
         <Switch>
           <Route
@@ -47,7 +48,7 @@ const App = ({ User, signin, signout }) => {
           <Route path="/signup" exact component={Signup} />
         </Switch>
       </div>
-    </BrowserRouter>
+    </Router>
   );
 };
 
