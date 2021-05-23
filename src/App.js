@@ -11,6 +11,7 @@ import history from "./history";
 
 import { signin, signout } from "./actions";
 import { connect } from "react-redux";
+import FileUploadModal from "./components/SignedInHomepage/FileUploadModal";
 
 //const user = { email: "test", username: "test" };
 
@@ -19,7 +20,7 @@ const App = ({ User, signin, signout }) => {
     const unsubscribe = authenticator.onAuthStateChanged(function (user) {
       if (user) {
         //User is logged in
-        console.log(user);
+        //console.log(user);
         signin({
           email: user.email,
           username: user.displayName,

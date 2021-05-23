@@ -1,3 +1,8 @@
+.SignedInHomepage.no-scroll {
+  overflow: hidden;
+  height: 100vh;
+}
+
 .SignedInHomepage__posts {
   margin-top: 20px;
 
@@ -7,4 +12,44 @@
   justify-content: center;
 
   background: #fafafa;
+}
+
+.createPost--wrapper {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 500px;
+  margin: 20px auto;
+  background: #eaeaea;
+  padding: 5px;
+  color: #313131;
+  cursor: pointer;
+}
+
+.SignedInHomepage .createPost {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 20px;
+  pointer-events: none;
+  background: #fafafa;
+  padding: 8px 10px;
+}
+
+.SignedInHomepage .createPost .fa.fa-edit {
+  padding-top: 4px;
+  padding-right: 12px;
+  padding-left: 8px;
+  font-size: 1.2em;
+  pointer-events: none;
+}
+
+.SignedInHomepage .createPost span {
+  font-weight: 500;
+  pointer-events: none;
+  color: #757575;
+  letter-spacing: 0.3px;
+  font-size: 1.175em;
 }
