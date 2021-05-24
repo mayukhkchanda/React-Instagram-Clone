@@ -2,6 +2,8 @@ import React from "react";
 import "./css/Signin.css";
 
 import { Link } from "react-router-dom";
+import history from "../history";
+
 import Form from "../components/global/Form";
 import { authenticator } from "../firebase";
 
@@ -9,6 +11,9 @@ function Signin() {
   const onFormSubmit = ({ email, password }) => {
     authenticator
       .signInWithEmailAndPassword(email, password)
+      .then((user) => {
+        if (user) history.push("/");
+      })
       .catch((err) => console.log(err));
   };
 

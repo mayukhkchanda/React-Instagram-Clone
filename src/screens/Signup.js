@@ -2,6 +2,8 @@ import React from "react";
 import "./css/Signup.css";
 
 import { Link } from "react-router-dom";
+import history from "../history";
+
 import Form from "../components/global/Form";
 import { authenticator } from "../firebase";
 
@@ -11,9 +13,14 @@ function Signup() {
       .createUserWithEmailAndPassword(email, password)
       .then((user) => {
         if (user) {
-          authenticator.currentUser.updateProfile({
-            displayName: username,
-          });
+          authenticator.currentUser
+            .updateProfile({
+              displayName: username,
+            })
+            .then(() => {
+              history.push("/");
+            })
+            .catch((error) => console.log(error));
         }
       })
       .catch((err) => {

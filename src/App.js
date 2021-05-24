@@ -4,6 +4,7 @@ import Homepage from "./screens/Homepage";
 import Signup from "./screens/Signup";
 import Signin from "./screens/Signin";
 import SignedInHomepage from "./screens/SignedInHomepage";
+import PostShow from "./screens/PostShow";
 import { authenticator } from "./firebase";
 
 import { Router, Route, Switch } from "react-router-dom";
@@ -47,6 +48,7 @@ const App = ({ User, signin, signout }) => {
           />
           <Route path="/signin" exact component={Signin} />
           <Route path="/signup" exact component={Signup} />
+          <Route path="/show/:id/:showMessage" exact component={PostShow} />
         </Switch>
       </div>
     </Router>

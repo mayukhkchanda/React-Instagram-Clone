@@ -82,7 +82,6 @@
 
 .progres--bar {
   height: 10px;
-  width: 30%;
   background: #3e81f3;
 }
 
@@ -107,9 +106,10 @@
 .file__upload--div .text {
   background: #fafafa;
   height: 30px;
-  padding: 8px 71px 0px;
+  padding: 8px 5px 0px;
   font-weight: 600;
   pointer-events: none;
+  width: 73%;
 }
 
 .file__upload--div .button {
