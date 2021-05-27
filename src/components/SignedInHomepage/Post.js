@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "../css/SignedInHomepage/Post.css";
 
 import { Link } from "react-router-dom";
@@ -9,7 +9,12 @@ function Post({
   postId,
   data: { username, imageUrl, caption, userId },
   UserUID,
+  editMode,
+  handleCancelEdit,
+  handleConfirmEdit,
 }) {
+  const [EditedCaption, setEditedCaption] = useState(caption ?? "");
+
   const renderAdmin = () => {
     return (
       <div className="admin--div">
@@ -25,9 +30,47 @@ function Post({
     );
   };
 
+  const renderEditModeHeader = () => {
+    return editMode ? (
+      <div className="editable__header">
+        <div className="left-floated">
+          <i onClick={handleCancelEdit} className="fa fa-times"></i> &nbsp;
+          <span className="editable__header--name">Edit Info</span>
+        </div>
+        <i
+          onClick={() => handleConfirmEdit(EditedCaption)}
+          className="fa fa-check"
+        ></i>
+      </div>
+    ) : null;
+  };
+
+  const renderCaption = () => {
+    return editMode ? (
+      <form
+        onSubmit={(event) => event.preventDefault()}
+        className="editableCaption__form"
+      >
+        <input
+          type="text"
+          className="editableCaption"
+          value={EditedCaption}
+          onChange={(e) => setEditedCaption(e.target.value)}
+        />
+      </form>
+    ) : (
+      <div className="post_caption">
+        <h3>
+          <strong>{username}</strong> {caption}
+        </h3>
+      </div>
+    );
+  };
+
   return (
     <div className="post">
-      <div className="post__header">
+      {renderEditModeHeader()}
+      <div className={`post__header ${editMode ? "edit-mode" : ""}`}>
         <div className="header__userInfo">
           <div className="header__avatar">
             {username ? username[0].toUpperCase() : ""}
@@ -35,18 +78,13 @@ function Post({
           <div className="header__name">{username}</div>
         </div>
         <div className="header__adminButtons">
-          {UserUID === userId ? renderAdmin() : null}
+          {UserUID === userId && !editMode ? renderAdmin() : null}
         </div>
       </div>
       <Link to={`/show/${postId}/false`}>
         <img className="post_image" src={imageUrl} alt={caption} />
       </Link>
-
-      <div className="post_caption">
-        <h3>
-          <strong>{username}</strong> {caption}
-        </h3>
-      </div>
+      {renderCaption()}
     </div>
   );
 }

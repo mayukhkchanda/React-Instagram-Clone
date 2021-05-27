@@ -2,6 +2,7 @@ import {
   FETCH_POSTS,
   CREATE_POST,
   FETCH_POST,
+  EDIT_POST,
   DELETE_POST,
 } from "../actions/types";
 import _ from "lodash";
@@ -13,6 +14,7 @@ const PostReducer = (posts = {}, action) => {
 
     case FETCH_POST:
     case CREATE_POST:
+    case EDIT_POST:
       return { ...posts, [action.payload.id]: action.payload };
 
     case DELETE_POST:

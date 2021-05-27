@@ -4,6 +4,7 @@ import {
   FETCH_POSTS,
   FETCH_POST,
   CREATE_POST,
+  EDIT_POST,
   DELETE_POST,
 } from "./types";
 import history from "../history";
@@ -117,6 +118,43 @@ export const fetchPost = (id) => async (dispatch) => {
   });
 };
 
+//** Edit Caption of a post */
+export const editPost = (postId, newCaption) => async (dispatch) => {
+  const updatedPostRef = await db
+    .collection("posts")
+    .doc(postId)
+    .update({
+      caption: newCaption,
+    })
+    .then(async () => {
+      const updatedPost = await db
+        .collection("post")
+        .doc(postId)
+        .get()
+        .then((doc) => {
+          if (doc.exists) {
+            return { id: doc.id, data: doc.data() };
+          } else {
+            return { id: postId, data: {} };
+          }
+        });
+
+      return updatedPost;
+    })
+    .catch((error) => {
+      console.log("Error getting document:", error);
+    });
+
+  //console.log(updatedPostRef);
+
+  dispatch({
+    type: EDIT_POST,
+    payload: updatedPostRef,
+  });
+
+  history.push(`/show/${postId}/false`);
+};
+
 /** Delete a particular post */
 export const deletePost = (postId) => async (dispatch) => {
   await db
@@ -124,7 +162,7 @@ export const deletePost = (postId) => async (dispatch) => {
     .doc(postId)
     .delete()
     .then(() => {
-      console.log("Document successfully deleted " + postId);
+      console.log("Document successfully deleted ");
       return {};
     })
     .catch((error) => {

@@ -107,3 +107,77 @@
   font-weight: 300;
   font-size: 0.975em;
 }
+
+/** Edit Mode Css **/
+
+.post__header.edit-mode {
+  padding: 7px 15px;
+}
+
+.post__header.edit-mode .header__avatar {
+  width: 27px;
+  height: 26px;
+  font-size: 1em;
+}
+
+.post__header.edit-mode .header__name {
+  font-size: 1.15em;
+}
+
+.editable__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: calc(100% - 28px);
+  padding: 9px 14px 7px;
+}
+
+.post .editable__header .fa {
+  font-size: 25px;
+  cursor: pointer;
+  position: unset;
+  top: unset;
+  right: unset;
+  font-weight: unset;
+}
+
+.editable__header .fa.fa-times {
+  margin-right: 6px;
+  color: #5a5a5a;
+}
+
+.editable__header .fa.fa-check {
+  color: #405de6;
+}
+
+.editable__header--name {
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  font-size: 1.295em;
+}
+
+.editableCaption__form {
+  margin-bottom: 2px;
+}
+
+.editableCaption {
+  border: none;
+  outline: none;
+  background: #fafafa;
+  width: calc(100% - 30px);
+  height: 32px;
+  padding-left: 10px;
+  margin-left: 10px;
+  margin-top: 5px;
+  padding-bottom: 1.5px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid #a2a2a2;
+  font-family: helvetica;
+  letter-spacing: 0.25px;
+  font-size: 0.995em;
+  transition: border-bottom 350ms cubic-bezier(0.01, 0.6, 0.35, 0.93);
+}
+
+.editableCaption:focus {
+  border-bottom: 1px solid #405de6;
+}
