@@ -58,7 +58,7 @@ function FileUploadModal({ setModalShow, createPost }) {
       () => {
         //Callback for successful uploads
         uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-          console.log(downloadURL);
+          // console.log(downloadURL);
           //call an async action creator for posting
           createPost({ caption: Caption, imageUrl: downloadURL });
         });

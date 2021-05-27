@@ -6,35 +6,33 @@ import "./css/PostShow.css";
 import { fetchPost } from "../actions";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import Loader from "../components/global/Loader";
 
 function PostShow({ post, fetchPost, match }) {
   const id = match.params.id;
   const showMessage = match.params.showMessage;
 
   useEffect(() => {
-    console.log(id);
+    //console.log(id);
     fetchPost(id);
   }, [id]);
 
   return (
-    <div class="PostShow">
+    <div className="PostShow">
       <Header />
       <div className="PostShow--postWrapper">
         {post ? (
           <Post data={post?.data} postId={post?.id} />
         ) : (
           <>
-            <div class="spinner">
-              <div class="double-bounce1"></div>
-              <div class="double-bounce2"></div>
-            </div>
+            <Loader />
           </>
         )}
       </div>
       {showMessage === "true" ? (
-        <div class="message">
+        <div className="message">
           Your post was uploaded successfully. Go back to{" "}
-          <Link to="/" href="#" class="home">
+          <Link to="/" href="#" className="home">
             Home
           </Link>
         </div>

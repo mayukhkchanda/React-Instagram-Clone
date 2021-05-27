@@ -12,7 +12,8 @@ import history from "./history";
 
 import { signin, signout } from "./actions";
 import { connect } from "react-redux";
-import FileUploadModal from "./components/SignedInHomepage/FileUploadModal";
+import PostEdit from "./screens/PostEdit";
+import PostDelete from "./screens/PostDelete";
 
 //const user = { email: "test", username: "test" };
 
@@ -49,6 +50,8 @@ const App = ({ User, signin, signout }) => {
           <Route path="/signin" exact component={Signin} />
           <Route path="/signup" exact component={Signup} />
           <Route path="/show/:id/:showMessage" exact component={PostShow} />
+          <Route path="/edit/:id" exact component={PostEdit} />
+          <Route path="/delete/:id" exact component={PostDelete} />
         </Switch>
       </div>
     </Router>

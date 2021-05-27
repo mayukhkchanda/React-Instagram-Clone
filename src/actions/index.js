@@ -4,6 +4,7 @@ import {
   FETCH_POSTS,
   FETCH_POST,
   CREATE_POST,
+  DELETE_POST,
 } from "./types";
 import history from "../history";
 import { db } from "../firebase";
@@ -17,7 +18,7 @@ export const signin = (user) => {
 };
 
 export const signout = () => {
-  history.push("/");
+  history.push("/"); //this kicks back the user to the homepage when he's signed out
 
   return {
     type: SIGN_OUT,
@@ -25,6 +26,7 @@ export const signout = () => {
   };
 };
 
+/** Fetch all posts */
 export const fetchPosts = () => async (dispatch) => {
   const posts = await db
     .collection("posts")
@@ -50,9 +52,11 @@ export const fetchPosts = () => async (dispatch) => {
   });
 };
 
+//**Create a post  */
 //post ={ caption:'...', imageUrl:'...' }
 export const createPost = (post) => async (dispatch, getState) => {
   const username = getState().user.username;
+  const userId = getState().user.userId;
 
   const serverTimestamp = firebase.firestore.FieldValue.serverTimestamp();
 
@@ -60,6 +64,7 @@ export const createPost = (post) => async (dispatch, getState) => {
     .collection("posts")
     .add({
       username: username,
+      userId: userId,
       caption: post.caption,
       imageUrl: post.imageUrl,
       timestamp: serverTimestamp,
@@ -80,7 +85,7 @@ export const createPost = (post) => async (dispatch, getState) => {
       console.log(error);
     });
 
-  console.log(postRef);
+  //console.log(postRef);
 
   dispatch({
     type: CREATE_POST,
@@ -90,6 +95,7 @@ export const createPost = (post) => async (dispatch, getState) => {
   history.push(`/show/${postRef.id}/true`);
 };
 
+/** Fetch a particular post */
 export const fetchPost = (id) => async (dispatch) => {
   const post = await db
     .collection("posts")
@@ -97,7 +103,7 @@ export const fetchPost = (id) => async (dispatch) => {
     .get()
     .then((doc) => {
       if (doc.exists) {
-        console.log(doc.data());
+        // console.log(doc.data());
         return { id: doc.id, data: doc.data() };
       } else {
         return { id: id, data: {} };
@@ -109,4 +115,26 @@ export const fetchPost = (id) => async (dispatch) => {
     type: FETCH_POST,
     payload: post,
   });
+};
+
+/** Delete a particular post */
+export const deletePost = (postId) => async (dispatch) => {
+  await db
+    .collection("posts")
+    .doc(postId)
+    .delete()
+    .then(() => {
+      console.log("Document successfully deleted " + postId);
+      return {};
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
+  dispatch({
+    type: DELETE_POST,
+    payload: postId,
+  });
+
+  history.push("/");
 };

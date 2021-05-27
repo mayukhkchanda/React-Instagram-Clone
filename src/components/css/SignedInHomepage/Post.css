@@ -22,6 +22,8 @@
   background: #fff;
 
   display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   padding: 16px 15px;
 
   align-items: center;
@@ -51,6 +53,43 @@
   font-weight: 600;
   letter-spacing: 0.45px;
   font-size: 1.25em;
+}
+
+.header__userInfo {
+  display: flex;
+  align-items: center;
+}
+
+.header__adminButtons {
+  display: flex;
+  align-items: center;
+}
+
+.admin--div {
+  font-family: helvetica;
+}
+
+.admin--div .button {
+  background: #757575bf;
+  padding: 6px 10px;
+  margin-right: 20px;
+  border-radius: 4px;
+  color: #fafafa;
+  letter-spacing: 0.45px;
+  cursor: pointer;
+}
+
+.admin--div .button.edit {
+  background: #405de6;
+}
+
+.admin--div .button.delete {
+  background: #e1306c;
+}
+
+.admin--div .fa.fa-trash,
+.fa.fa-edit {
+  margin-left: 5px;
 }
 
 .post_image {

@@ -1,4 +1,9 @@
-import { FETCH_POSTS, CREATE_POST, FETCH_POST } from "../actions/types";
+import {
+  FETCH_POSTS,
+  CREATE_POST,
+  FETCH_POST,
+  DELETE_POST,
+} from "../actions/types";
 import _ from "lodash";
 
 const PostReducer = (posts = {}, action) => {
@@ -7,9 +12,11 @@ const PostReducer = (posts = {}, action) => {
       return _.mapKeys(action.payload, "id");
 
     case FETCH_POST:
-      return { ...posts, [action.payload.id]: action.payload };
     case CREATE_POST:
       return { ...posts, [action.payload.id]: action.payload };
+
+    case DELETE_POST:
+      return _.omit(posts, [action.payload]);
 
     default:
       return posts;

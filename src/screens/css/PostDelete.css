@@ -1,0 +1,17 @@
+.PostDelete {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.PostDelete .SignedInHomepage__header {
+  width: auto;
+}
+
+.PostDelete .button.delete {
+  display: none;
+}
+
+.PostDelete_Post {
+  margin-top: 35px;
+}
