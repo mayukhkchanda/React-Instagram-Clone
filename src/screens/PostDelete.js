@@ -18,7 +18,7 @@ function PostDelete({ post, fetchPost, deletePost, match }) {
   }, []);
 
   const onBackgroundClick = () => {
-    history.push(`/show/${postId}/false`);
+    history.push(`/show/view/${postId}`);
   };
 
   const handleConfirmDelete = () => {

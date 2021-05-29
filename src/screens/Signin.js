@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import "./css/Signin.css";
+import { ShortError } from "../utils/GetShortError";
 
 import { Link } from "react-router-dom";
 import history from "../history";
@@ -8,13 +9,18 @@ import Form from "../components/global/Form";
 import { authenticator } from "../firebase";
 
 function Signin() {
+  const [OAuthError, setOAuthError] = useState("");
+
   const onFormSubmit = ({ email, password }) => {
     authenticator
       .signInWithEmailAndPassword(email, password)
       .then((user) => {
         if (user) history.push("/");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setOAuthError(ShortError(err));
+        //alert(ShortError(err));
+      });
   };
 
   return (
@@ -33,6 +39,7 @@ function Signin() {
           passwordPlaceholder="Password"
           submitBtnText="Log In"
           onFormSubmit={onFormSubmit}
+          OAuthError={OAuthError}
         />
 
         <div className="form__orText">

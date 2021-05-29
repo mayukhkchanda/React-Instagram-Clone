@@ -81,7 +81,7 @@ function Post({
           {UserUID === userId && !editMode ? renderAdmin() : null}
         </div>
       </div>
-      <Link to={`/show/${postId}/false`}>
+      <Link to={`/show/view/${postId}`}>
         <img className="post_image" src={imageUrl} alt={caption} />
       </Link>
       {renderCaption()}

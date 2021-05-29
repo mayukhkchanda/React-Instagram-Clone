@@ -19,7 +19,7 @@ export const signin = (user) => {
 };
 
 export const signout = () => {
-  history.push("/"); //this kicks back the user to the homepage when he's signed out
+  //history.push("/"); //this kicks back the user to the homepage when he's signed out
 
   return {
     type: SIGN_OUT,
@@ -31,6 +31,7 @@ export const signout = () => {
 export const fetchPosts = () => async (dispatch) => {
   const posts = await db
     .collection("posts")
+    .orderBy("timestamp", "desc") //get the lastest created post
     .get()
     .then((querySnapshot) => {
       /*  querySnapshot.forEach((doc) => {
@@ -93,7 +94,7 @@ export const createPost = (post) => async (dispatch, getState) => {
     payload: postRef,
   });
 
-  history.push(`/show/${postRef.id}/true`);
+  history.push(`/show/upload/${postRef.id}`);
 };
 
 /** Fetch a particular post */
@@ -152,7 +153,7 @@ export const editPost = (postId, newCaption) => async (dispatch) => {
     payload: updatedPostRef,
   });
 
-  history.push(`/show/${postId}/false`);
+  history.push(`/show/update/${postId}/`);
 };
 
 /** Delete a particular post */

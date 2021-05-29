@@ -49,9 +49,17 @@ const App = ({ User, signin, signout }) => {
           />
           <Route path="/signin" exact component={Signin} />
           <Route path="/signup" exact component={Signup} />
-          <Route path="/show/:id/:showMessage" exact component={PostShow} />
-          <Route path="/edit/:id" exact component={PostEdit} />
-          <Route path="/delete/:id" exact component={PostDelete} />
+          <Route
+            path="/show/:preview/:id/"
+            exact
+            component={User ? PostShow : Signin}
+          />
+          <Route path="/edit/:id" exact component={User ? PostEdit : Signin} />
+          <Route
+            path="/delete/:id"
+            exact
+            component={User ? PostDelete : Signin}
+          />
         </Switch>
       </div>
     </Router>

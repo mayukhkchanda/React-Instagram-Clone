@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../css/global/Form.css";
 
 import { Formik } from "formik";
+import SpinnerSmall from "./SpinnerSmall";
 
 function Form({
   emailPlaceholder,
@@ -10,7 +11,14 @@ function Form({
   showUsernameFeild,
   userNamePlaceholder,
   onFormSubmit,
+  OAuthError,
 }) {
+  const [displaySpinner, setdisplaySpinner] = useState(false);
+
+  useEffect(() => {
+    if (OAuthError !== "") setdisplaySpinner(false);
+  }, [OAuthError]);
+
   /**should Submit be disabled? */
   const isDisabled = (values = {}, errors = {}) => {
     //console.log(values);
@@ -21,6 +29,20 @@ function Form({
       return true;
     }
     return false;
+  };
+
+  /**Render Error Div message */
+  const renderErr = (errorMsg, touched) => {
+    if (errorMsg && touched)
+      return (
+        <div className="error-message">{errorMsg && touched && errorMsg}</div>
+      );
+    else return null;
+  };
+
+  /**Render OAuth Message */
+  const renderOAuthMsg = (Message) => {
+    return <div className="google-auth-message">{Message}</div>;
   };
 
   return (
@@ -63,6 +85,7 @@ function Form({
       onSubmit={(values, { setSubmitting }) => {
         onFormSubmit(values);
         setSubmitting(false);
+        setdisplaySpinner(true);
       }}
     >
       {({
@@ -83,42 +106,55 @@ function Form({
                 <input
                   name="username"
                   type="text"
-                  className="form__input"
+                  className={`form__input ${
+                    errors.username && touched.username && errors.username
+                      ? "form__input--error"
+                      : ""
+                  }`}
                   onChange={handleChange}
                   onBlur={handleBlur}
                   placeholder={userNamePlaceholder}
                   value={values.username}
                 />
-                {errors.username && touched.username && errors.username}
+                {renderErr(errors.username, touched.username)}
               </label>
             ) : null}
-
             <label className="form__input--container">
               {/* <span>Phone number, username, or email</span>  */}
               <input
                 name="email"
                 type="text"
-                className="form__input"
+                className={`form__input ${
+                  errors.email && touched.email && errors.email
+                    ? "form__input--error"
+                    : ""
+                }`}
                 onChange={handleChange}
                 onBlur={handleBlur}
                 placeholder={emailPlaceholder}
                 value={values.email}
               />
             </label>
-            {errors.email && touched.email && errors.email}
+            {renderErr(errors.email, touched.email)}
             <label className="form__input--container">
               {/* <span>Password</span>  */}
               <input
                 name="password"
                 type="password"
-                className="form__input"
+                className={`form__input ${
+                  errors.password && touched.password && errors.password
+                    ? "form__input--error"
+                    : ""
+                }`}
                 onChange={handleChange}
                 onBlur={handleBlur}
                 placeholder={passwordPlaceholder}
                 value={values.password}
               />
             </label>
-            {errors.password && touched.password && errors.password}
+            {renderErr(errors.password, touched.password)}
+
+            {OAuthError !== "" ? renderOAuthMsg(OAuthError) : null}
 
             <input
               type="submit"
@@ -128,6 +164,8 @@ function Form({
               }`}
               disabled={isSubmitting || isDisabled(values, errors)}
             />
+
+            {displaySpinner ? <SpinnerSmall /> : null}
           </form>
         );
       }}

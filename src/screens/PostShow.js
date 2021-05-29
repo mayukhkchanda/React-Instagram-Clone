@@ -5,44 +5,61 @@ import "./css/PostShow.css";
 
 import { fetchPost } from "../actions";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import Loader from "../components/global/Loader";
 
-function PostShow({ post, fetchPost, match }) {
+function PostShow({ post, fetchPost, match, User }) {
   const id = match.params.id;
-  const showMessage = match.params.showMessage;
+  const preview = match.params.preview;
 
   useEffect(() => {
     //console.log(id);
     fetchPost(id);
   }, [id]);
 
-  return (
-    <div className="PostShow">
-      <Header />
-      <div className="PostShow--postWrapper">
-        {post ? (
-          <Post data={post?.data} postId={post?.id} />
-        ) : (
-          <>
-            <Loader />
-          </>
-        )}
+  const renderNotification = () => {
+    let previewText = "";
+    if (preview === "view") {
+      return null;
+    } else if (preview === "upload") {
+      previewText = "uploaded";
+    } else if (preview === "update") {
+      previewText = "updated";
+    }
+
+    return (
+      <div className="message">
+        Your post was {previewText + " "} successfully. Go back to{" "}
+        <Link to="/" href="#" className="home">
+          Home
+        </Link>
       </div>
-      {showMessage === "true" ? (
-        <div className="message">
-          Your post was uploaded successfully. Go back to{" "}
-          <Link to="/" href="#" className="home">
-            Home
-          </Link>
+    );
+  };
+
+  const renderPostShowCotent = () => {
+    return (
+      <div className="PostShow">
+        <Header />
+        <div className="PostShow--postWrapper">
+          {post ? (
+            <Post data={post?.data} postId={post?.id} />
+          ) : (
+            <>
+              <Loader />
+            </>
+          )}
         </div>
-      ) : null}
-    </div>
-  );
+        {renderNotification()};
+      </div>
+    );
+  };
+
+  return User ? renderPostShowCotent() : <Redirect to="/" />;
 }
 
 const mapStateToProps = (state, ownProps) => {
-  return { post: state.posts[ownProps.match.params.id] };
+  return { post: state.posts[ownProps.match.params.id], User: state.user };
 };
 
 export default connect(mapStateToProps, {

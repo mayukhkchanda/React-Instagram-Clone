@@ -18,7 +18,7 @@ function PostEdit({ post, fetchPost, editPost, match }) {
 
   const handleCancelEdit = () => {
     /**redirect to post show */
-    history.push(`/show/${postId}/false`);
+    history.push(`/show/view/${postId}`);
   };
 
   const handleConfirmEdit = (newCaption) => {

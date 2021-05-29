@@ -40,6 +40,16 @@ a {
   max-width: 400px;
 }
 
+.Signup .error-message {
+  width: 75%;
+  max-width: 400px;
+}
+
+.Signup .google-auth-message {
+  width: 75%;
+  max-width: 400px;
+}
+
 .Signup__form .form__login {
   width: 79%;
   max-width: 410px;
@@ -115,14 +125,14 @@ a {
   flex-direction: row;
   justify-content: center;
 
-  font-size: 0.85em;
+  font-size: 0.95em;
   font-weight: 400;
   padding-bottom: 0;
   letter-spacing: 0.5px;
 }
 
 .signin a {
-  font-size: 0.95em;
+  font-size: 1.12em;
   font-weight: 700;
   color: rgb(0, 149, 246);
   letter-spacing: 1px;
