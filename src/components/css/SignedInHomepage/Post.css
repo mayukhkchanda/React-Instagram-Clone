@@ -150,6 +150,11 @@
   color: #405de6;
 }
 
+.post .editable__header .spinner-small {
+  top: 15px;
+  left: 0px;
+}
+
 .editable__header--name {
   font-weight: 600;
   letter-spacing: 0.2px;

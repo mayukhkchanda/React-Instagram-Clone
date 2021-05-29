@@ -4,6 +4,7 @@ import "../css/SignedInHomepage/Post.css";
 import { Link } from "react-router-dom";
 
 import { connect } from "react-redux";
+import SpinnerSmall from "../global/SpinnerSmall";
 
 function Post({
   postId,
@@ -14,6 +15,7 @@ function Post({
   handleConfirmEdit,
 }) {
   const [EditedCaption, setEditedCaption] = useState(caption ?? "");
+  const [ShowSpinner, setShowSpinner] = useState(false);
 
   const editCaptionInputRef = useRef(null);
 
@@ -45,10 +47,17 @@ function Post({
           <i onClick={handleCancelEdit} className="fa fa-times"></i> &nbsp;
           <span className="editable__header--name">Edit Info</span>
         </div>
-        <i
-          onClick={() => handleConfirmEdit(EditedCaption)}
-          className="fa fa-check"
-        ></i>
+        {!ShowSpinner ? (
+          <i
+            onClick={() => {
+              handleConfirmEdit(EditedCaption);
+              setShowSpinner(true);
+            }}
+            className="fa fa-check"
+          />
+        ) : (
+          <SpinnerSmall />
+        )}
       </div>
     ) : null;
   };
