@@ -17,9 +17,6 @@ function DeleteModal({ onBackgroundClick, handleConfirmDelete }) {
             Are you sure you want to delete this post?
           </h3>
 
-          {/* <div className="progress--div">
-        <div className="progres--bar" style=" width: 32% "></div>
-        </div> */}
           <div className="DeletPost--buttonWrapper">
             <button
               onClick={handleConfirmDelete}

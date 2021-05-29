@@ -10,6 +10,7 @@ function FileUploadModal({ setModalShow, createPost }) {
   const [Caption, setCaption] = useState("");
   const [File, setFile] = useState(null);
   const [ProgressPercent, setProgressPercent] = useState(0);
+  const [NoFileErr, setNoFileErr] = useState("");
 
   useEffect(() => {
     if (ProgressPercent === 100) {
@@ -24,12 +25,20 @@ function FileUploadModal({ setModalShow, createPost }) {
   const handleFileChange = (event) => {
     if (event.target.files[0]) {
       setFile(event.target.files[0]);
+      setNoFileErr("");
     }
   };
 
   const handleFileUpload = (event) => {
     /* console.log(File);
     console.log(Caption); */
+
+    /**Handle blank file upload */
+
+    if (File === null) {
+      setNoFileErr("Select a file to upload");
+      return;
+    }
 
     const storageRef = storage.ref();
 
@@ -66,6 +75,10 @@ function FileUploadModal({ setModalShow, createPost }) {
     );
   };
 
+  const renderError = (message) => {
+    return <div className="no-file-selected">{message}</div>;
+  };
+
   const renderModal = () => {
     return (
       <div className="modal" onClick={() => setModalShow(false)}>
@@ -91,8 +104,11 @@ function FileUploadModal({ setModalShow, createPost }) {
               id="upload-photo"
               name="image_file"
               onChange={handleFileChange}
+              accept="image/png, image/gif, image/jpeg"
             />
           </div>
+
+          {NoFileErr !== "" ? renderError(NoFileErr) : null}
 
           <div className="progress--div">
             <div

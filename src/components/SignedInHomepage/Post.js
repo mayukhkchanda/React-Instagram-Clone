@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "../css/SignedInHomepage/Post.css";
 
 import { Link } from "react-router-dom";
@@ -14,6 +14,14 @@ function Post({
   handleConfirmEdit,
 }) {
   const [EditedCaption, setEditedCaption] = useState(caption ?? "");
+
+  const editCaptionInputRef = useRef(null);
+
+  useEffect(() => {
+    if (editMode && editCaptionInputRef) {
+      editCaptionInputRef.current.focus();
+    }
+  }, [editCaptionInputRef]);
 
   const renderAdmin = () => {
     return (
@@ -52,6 +60,7 @@ function Post({
         className="editableCaption__form"
       >
         <input
+          ref={editCaptionInputRef}
           type="text"
           className="editableCaption"
           value={EditedCaption}

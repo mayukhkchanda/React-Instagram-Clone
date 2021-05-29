@@ -32,3 +32,9 @@
 .message .home:hover {
   text-decoration: underline;
 }
+
+@media screen and (max-width: 600px) {
+  .message {
+    max-width: calc(475px - 100px);
+  }
+}
