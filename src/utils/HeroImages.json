@@ -6,7 +6,8 @@
         "headerText": "Express yourself in new ways with the latest Instagram features.",
         "btnText" : "Features",
         "showIcons" : true,
-        "flipped" : false
+        "flipped" : false,
+        "imageSrcName" : "girl-in-burkha.jpg"
     },
     { 
         "url" : "https://scontent.fccu3-1.fna.fbcdn.net/v/t39.8562-6/94225111_231636688063841_5944941045035827200_n.jpg?_nc_cat=100&ccb=1-3&_nc_sid=6825c5&_nc_ohc=mbZQnEcIuN4AX_zfoTw&_nc_ht=scontent.fccu3-1.fna&oh=1dd21f7467ac8eb3c01c80f78f39530c&oe=60C6A6FA" ,
@@ -15,7 +16,8 @@
         "headerText": "Connect with more people, build influence, and create compelling content that's distinctly yours.",
         "btnText" : "Creators",
         "showIcons" : false,
-        "flipped" : true
+        "flipped" : true,
+        "imageSrcName" : "sea-beach.jpg"
     },
     { 
         "url" : "https://scontent.fccu3-1.fna.fbcdn.net/v/t39.8562-6/119710604_2888832251393601_9204701282333338993_n.jpg?_nc_cat=110&ccb=1-3&_nc_sid=6825c5&_nc_ohc=_OB89GZYQPUAX_2m0Jp&_nc_ht=scontent.fccu3-1.fna&oh=ab2edbbda3a5734984c6e0bc87d3b7ea&oe=60C6BFB0",
@@ -24,6 +26,7 @@
         "headerText": "Share and grow your brand with our diverse, global community.",
         "btnText" : "Business",
         "showIcons" : false,
-        "flipped" : false
+        "flipped" : false,
+        "imageSrcName" : "girl-earings.jpg"
     }
 ]

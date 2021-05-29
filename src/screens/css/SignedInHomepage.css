@@ -58,3 +58,13 @@ a {
   letter-spacing: 0.3px;
   font-size: 1.175em;
 }
+
+@media screen and (max-width: 600px) {
+  .SignedInHomepage .SignedInHomepage__header {
+    position: fixed;
+  }
+
+  .SignedInHomepage .ImageUpload {
+    margin-top: 90px;
+  }
+}

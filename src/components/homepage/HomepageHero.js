@@ -10,6 +10,7 @@ function HomepageHero({
   paraText,
   headerText,
   btnText,
+  imageSrcName,
 }) {
   return (
     <div
@@ -211,7 +212,10 @@ function HomepageHero({
           </div>
         </div>
         <div className="image-container">
-          <img src={url} alt={alt} />
+          <img
+            src={`${process.env.PUBLIC_URL}/assets/images/${imageSrcName}`}
+            alt={alt}
+          />
         </div>
       </div>
 

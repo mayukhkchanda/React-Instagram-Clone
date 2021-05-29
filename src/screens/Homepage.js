@@ -25,7 +25,16 @@ class homepage extends Component {
 
   renderHeros() {
     return HeroImages.map(
-      ({ url, alt, showIcons, flipped, paraText, headerText, btnText }) => {
+      ({
+        url,
+        alt,
+        showIcons,
+        flipped,
+        paraText,
+        headerText,
+        btnText,
+        imageSrcName,
+      }) => {
         return (
           <HomepageHero
             key={alt}
@@ -36,6 +45,7 @@ class homepage extends Component {
             btnText={btnText}
             showIcons={showIcons}
             flipped={flipped}
+            imageSrcName={imageSrcName}
           />
         );
       }

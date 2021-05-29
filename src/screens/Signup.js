@@ -49,7 +49,7 @@ function Signup({ signin }) {
       <div className="Signup__form">
         <Link to="/">
           <img
-            src="https://th.bing.com/th/id/Rff854302b1aeaf008c572d7d015a0317?rik=KH%2b6kyi5Sbtz7g&riu=http%3a%2f%2fwww.edigitalagency.com.au%2fwp-content%2fuploads%2finstagram-logo-text-black-png.png"
+            src={`${process.env.PUBLIC_URL}/assets/images/instagram-logo.png`}
             className="form__logo"
           />
         </Link>

@@ -28,8 +28,8 @@ function Signin() {
       <div className="Signin__form">
         <Link to="/">
           <img
-            alt="facebook-logo"
-            src="https://th.bing.com/th/id/Rff854302b1aeaf008c572d7d015a0317?rik=KH%2b6kyi5Sbtz7g&riu=http%3a%2f%2fwww.edigitalagency.com.au%2fwp-content%2fuploads%2finstagram-logo-text-black-png.png"
+            alt="instagram logo"
+            src={`${process.env.PUBLIC_URL}/assets/images/instagram-logo.png`}
             className="form__logo"
           />
         </Link>
@@ -50,7 +50,8 @@ function Signin() {
 
         <a href="#" className="form__Fblogin no-background">
           <img
-            src="https://kpnet.dk/wp-content/uploads/2015/08/facebook-logo-small37.png"
+            //src="https://kpnet.dk/wp-content/uploads/2015/08/facebook-logo-small37.png"
+            src={`${process.env.PUBLIC_URL}/assets/images/facebook-logo-small.png`}
             className="fb-logo"
           ></img>
           <span className="grey-text fb-blue font-bigger">

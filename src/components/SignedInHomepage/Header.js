@@ -13,7 +13,7 @@ function Header() {
       <Link to="/">
         <img
           className="SignedInHomepage__logo"
-          src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png"
+          src={`${process.env.PUBLIC_URL}/assets/images/instagram-logo-header-small.png`}
           alt="ig-logo"
         />
       </Link>

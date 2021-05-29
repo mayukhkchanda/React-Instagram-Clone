@@ -36,7 +36,7 @@ function FileUploadModal({ setModalShow, createPost }) {
     /**Handle blank file upload */
 
     if (File === null) {
-      setNoFileErr("Select a file to upload");
+      setNoFileErr("Select an image to upload");
       return;
     }
 

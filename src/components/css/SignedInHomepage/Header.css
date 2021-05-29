@@ -27,6 +27,7 @@
 .SignedInHomepage__logo {
   margin-left: 10px;
   object-fit: contain;
+  margin-top: 5px;
 }
 
 .SignedInHomepage_auth-button {
