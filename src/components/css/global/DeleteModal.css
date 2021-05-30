@@ -15,7 +15,7 @@
   align-items: center;
 }
 
-.fa.fa-times {
+.DeletePost .fa.fa-times {
   position: absolute;
   top: 5px;
   right: 20px;
@@ -100,4 +100,10 @@
 
 .DeletePost__button.Delete {
   background: #ff3535;
+}
+
+@media screen and (max-width: 600px) {
+  .DeletePost .fa.fa-times {
+    right: 29px;
+  }
 }

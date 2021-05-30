@@ -67,4 +67,12 @@ a {
   .SignedInHomepage .ImageUpload {
     margin-top: 90px;
   }
+
+  .SignedInHomepage .createPost span {
+    font-weight: 700;
+  }
+
+  .SignedInHomepage .createPost {
+    padding: 11px 10px;
+  }
 }

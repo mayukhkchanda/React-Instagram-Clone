@@ -154,3 +154,9 @@ a {
   color: #fafafa !important;
   font-weight: 400;
 }
+
+@media screen and (max-width: 600px) {
+  .Signup__form .form__login {
+    padding: 10px;
+  }
+}

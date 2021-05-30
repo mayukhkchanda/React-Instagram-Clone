@@ -39,6 +39,19 @@ function FileUploadModal({ setModalShow, createPost }) {
       setNoFileErr("Select an image to upload");
       return;
     }
+    const extension = /^.+\.([^.]+)$/.exec(File?.name)[1]; //returns an object
+    if (
+      !(
+        extension === "png" ||
+        extension === "jpeg" ||
+        extension === "jpg" ||
+        extension === "gif" ||
+        extension === "bmp"
+      )
+    ) {
+      setNoFileErr("Select .png/.jgep/.gif extension file");
+      return;
+    }
 
     const storageRef = storage.ref();
 

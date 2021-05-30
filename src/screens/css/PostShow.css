@@ -37,4 +37,9 @@
   .message {
     max-width: calc(475px - 100px);
   }
+
+  .message .home {
+    font-size: 1.15em;
+    font-weight: 700;
+  }
 }

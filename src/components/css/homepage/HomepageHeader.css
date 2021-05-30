@@ -78,4 +78,7 @@
   .navbar {
     width: 93.6vw;
   }
+  .navbar .login-text {
+    font-weight: 600;
+  }
 }

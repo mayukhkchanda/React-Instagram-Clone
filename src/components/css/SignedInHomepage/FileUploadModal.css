@@ -151,3 +151,9 @@
   letter-spacing: 0.35px;
   font-weight: 600;
 }
+
+@media screen and (max-width: 600px) {
+  .createPost--modal .fa.fa-times {
+    right: 29px;
+  }
+}
