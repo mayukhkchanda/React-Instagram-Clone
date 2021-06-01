@@ -6,16 +6,23 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import SpinnerSmall from "../global/SpinnerSmall";
 
+import firebase from "firebase";
+import { db } from "../../firebase";
+import CommentForm from "../global/CommentForm";
+
 function Post({
   postId,
   data: { username, imageUrl, caption, userId },
   UserUID,
+  Username,
   editMode,
   handleCancelEdit,
   handleConfirmEdit,
+  allComments,
 }) {
   const [EditedCaption, setEditedCaption] = useState(caption ?? "");
   const [ShowSpinner, setShowSpinner] = useState(false);
+  const [Comments, setComments] = useState([]);
 
   const editCaptionInputRef = useRef(null);
 
@@ -24,6 +31,39 @@ function Post({
       editCaptionInputRef.current.focus();
     }
   }, [editCaptionInputRef]);
+
+  useEffect(() => {
+    let unsubscribe;
+
+    if (postId) {
+      unsubscribe = db
+        .collection("posts")
+        .doc(postId)
+        .collection("comments")
+        /* .get()
+        .then((querySnapshot) => {
+          console.log(querySnapshot);
+          querySnapshot.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+            console.log(doc.id, " => ", doc.data());
+          });
+        }); */
+        .orderBy("timestamp", "desc")
+        .onSnapshot((snapshot) => {
+          //console.log(snapshot.docs);
+          setComments(
+            snapshot.docs.map((doc) => {
+              // console.log(doc);
+              return { id: doc.id, data: doc.data() };
+            })
+          );
+        });
+    }
+
+    return () => {
+      if (postId) unsubscribe();
+    };
+  }, []);
 
   const renderAdmin = () => {
     return (
@@ -85,6 +125,45 @@ function Post({
     );
   };
 
+  const handleCommentFormSubmit = (comment) => {
+    db.collection("posts").doc(postId).collection("comments").add({
+      commentText: comment,
+      commentUser: Username,
+      CommentUserId: UserUID,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+    });
+  };
+
+  const renderComments = () => {
+    const renderedComments = Comments.filter((el, index) =>
+      allComments ? true : index < 3
+    ).map(({ id, data: { commentUser, commentText } }) => {
+      //console.log(comment);
+      return (
+        <div key={id} className="post__comment">
+          <div className="comment__user">{commentUser}</div>
+          <div className="comment__text">{commentText}</div>
+        </div>
+      );
+    });
+    //console.log(Comments);
+    return (
+      <div className="post__comment--wrapper">
+        <CommentForm
+          handleCommentFormSubmit={handleCommentFormSubmit}
+          Placeholder="Add a comment..."
+        />
+        {Comments.length > 3 && !allComments ? (
+          <Link
+            to={`/comments/${postId}`}
+            className="post__comment--moreComments"
+          >{`View all ${Comments.length} comments`}</Link>
+        ) : null}
+        {renderedComments}
+      </div>
+    );
+  };
+
   return (
     <div className="post">
       {renderEditModeHeader()}
@@ -103,10 +182,15 @@ function Post({
         <img className="post_image" src={imageUrl} alt={caption} />
       </Link>
       {renderCaption()}
+      {renderComments()}
+      {/* <div className="post__comment">
+        <div className="comment__user">Test</div>
+        <div className="comment__text">Test Commnent. Will be removed</div>
+      </div> */}
     </div>
   );
 }
 
 export default connect((state) => {
-  return { UserUID: state.user.userId };
+  return { UserUID: state.user.userId, Username: state.user.username };
 }, {})(Post);

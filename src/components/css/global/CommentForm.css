@@ -1,0 +1,30 @@
+form.comment__form {
+  display: flex;
+  padding: 0px 10px 0px;
+  border-top: 1px solid lightgray;
+}
+input.comment__form__input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 12px 8px 10px;
+  font-size: 0.915em;
+  letter-spacing: 0.45px;
+}
+
+input.comment__form__submit {
+  flex: 0;
+  border: none;
+  color: #3052f7;
+  font-weight: 700;
+  font-size: 1.1em;
+  letter-spacing: 0.75px;
+  padding: 0px 8px;
+  cursor: pointer;
+  background: transparent;
+}
+
+input.comment__form__submit[disabled] {
+  color: #768dfb;
+  cursor: not-allowed;
+}

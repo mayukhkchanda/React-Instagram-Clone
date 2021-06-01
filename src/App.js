@@ -5,6 +5,10 @@ import Signup from "./screens/Signup";
 import Signin from "./screens/Signin";
 import SignedInHomepage from "./screens/SignedInHomepage";
 import PostShow from "./screens/PostShow";
+import PostEdit from "./screens/PostEdit";
+import PostDelete from "./screens/PostDelete";
+import PostComment from "./screens/PostComment";
+
 import { authenticator } from "./firebase";
 
 import { Router, Route, Switch } from "react-router-dom";
@@ -12,8 +16,6 @@ import history from "./history";
 
 import { signin, signout } from "./actions";
 import { connect } from "react-redux";
-import PostEdit from "./screens/PostEdit";
-import PostDelete from "./screens/PostDelete";
 
 //const user = { email: "test", username: "test" };
 
@@ -59,6 +61,11 @@ const App = ({ User, signin, signout }) => {
             path="/delete/:id"
             exact
             component={User ? PostDelete : Signin}
+          />
+          <Route
+            path="/comments/:id"
+            exact
+            component={User ? PostComment : Signin}
           />
         </Switch>
       </div>
