@@ -6,6 +6,8 @@ import {
   CREATE_POST,
   EDIT_POST,
   DELETE_POST,
+  LIKE_POST,
+  UNLIKE_POST,
 } from "./types";
 import history from "../history";
 import { db } from "../firebase";
@@ -28,11 +30,17 @@ export const signout = () => {
 };
 
 /** Fetch all posts */
-export const fetchPosts = () => async (dispatch) => {
+export const fetchPosts = () => async (dispatch, getState) => {
+  /* console.log(Object.values(getState().posts).length);
+  const getOptions =
+    Object.values(getState().posts).length > 0
+      ? { source: "cache" }
+      : { source: "default" }; */
+
   const posts = await db
     .collection("posts")
     .orderBy("timestamp", "desc") //get the lastest created post
-    .get()
+    .get(/* getOptions */)
     .then((querySnapshot) => {
       /*  querySnapshot.forEach((doc) => {
               // doc.data() is never undefined for query doc snapshots
@@ -176,4 +184,64 @@ export const deletePost = (postId) => async (dispatch) => {
   });
 
   history.push("/");
+};
+
+/**Add like on a post*/
+export const addLike = (postId) => async (dispatch, getState) => {
+  const UserUID = getState().user.userId;
+
+  const updatePost = await db
+    .collection("posts")
+    .doc(postId)
+    .update({
+      LikedBy: firebase.firestore.FieldValue.arrayUnion(UserUID),
+    })
+    .then(async () => {
+      const postRef = await db
+        .collection("posts")
+        .doc(postId)
+        .get()
+        .then((doc) => {
+          return { id: doc.id, data: doc.data() };
+        });
+
+      return postRef;
+    });
+
+  //console.log(updatePost);
+
+  dispatch({
+    type: LIKE_POST,
+    payload: updatePost,
+  });
+};
+
+/**Add unlike on a post*/
+export const addUnlike = (postId) => async (dispatch, getState) => {
+  const UserUID = getState().user.userId;
+
+  const updatePost = await db
+    .collection("posts")
+    .doc(postId)
+    .update({
+      LikedBy: firebase.firestore.FieldValue.arrayRemove(UserUID),
+    })
+    .then(async () => {
+      const postRef = await db
+        .collection("posts")
+        .doc(postId)
+        .get()
+        .then((doc) => {
+          return { id: doc.id, data: doc.data() };
+        });
+
+      return postRef;
+    });
+
+  //console.log(updatePost);
+
+  dispatch({
+    type: UNLIKE_POST,
+    payload: updatePost,
+  });
 };

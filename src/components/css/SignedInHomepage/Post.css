@@ -140,6 +140,23 @@
   cursor: pointer;
 }
 
+.likes-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 12px 10px 10px;
+}
+
+.like-button-span .button {
+  cursor: pointer;
+}
+
+.like-text-span {
+  margin-left: 10px;
+  letter-spacing: 0.5px;
+  font-size: 1.05em;
+}
+
 /** Edit Mode Css **/
 
 .post__header.edit-mode {

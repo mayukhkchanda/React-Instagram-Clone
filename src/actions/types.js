@@ -5,6 +5,8 @@ const FETCH_POST = "FETCH_POST";
 const CREATE_POST = "CREATE_POST";
 const EDIT_POST = "EDIT_POST";
 const DELETE_POST = "DELETE_POST";
+const LIKE_POST = "LIKE_POST";
+const UNLIKE_POST = "UNLIKE_POST";
 
 export {
   SIGN_IN,
@@ -14,4 +16,6 @@ export {
   FETCH_POST,
   EDIT_POST,
   DELETE_POST,
+  LIKE_POST,
+  UNLIKE_POST,
 };
