@@ -142,19 +142,31 @@
 
 .likes-wrapper {
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: 12px 10px 10px;
+  flex-direction: column;
+  justify-content: center;
+  padding: 12px 10px 0px;
 }
 
-.like-button-span .button {
+.button-span {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-right: 1px;
+}
+
+.like-button-span {
+  margin-right: 12px;
+}
+
+.button-span .button {
   cursor: pointer;
 }
 
 .like-text-span {
-  margin-left: 10px;
+  margin-left: 4px;
   letter-spacing: 0.5px;
-  font-size: 1.05em;
+  font-size: 0.975em;
+  margin-top: 5px;
 }
 
 /** Edit Mode Css **/
