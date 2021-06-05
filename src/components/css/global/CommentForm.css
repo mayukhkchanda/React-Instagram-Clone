@@ -1,6 +1,6 @@
 form.comment__form {
   display: flex;
-  padding: 0px 10px 0px;
+  padding: 4px 0px 8px;
   border-top: 1px solid lightgray;
 }
 input.comment__form__input {
@@ -21,7 +21,7 @@ input.comment__form__submit {
   letter-spacing: 0.75px;
   padding: 0px 8px;
   cursor: pointer;
-  background: transparent;
+  background: #fafafa;
 }
 
 input.comment__form__submit[disabled] {

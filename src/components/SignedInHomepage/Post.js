@@ -16,6 +16,7 @@ function Post({
   data: { username, imageUrl, caption, userId, likes, LikedBy },
   UserUID,
   Username,
+  isHomepage,
   editMode,
   handleCancelEdit,
   handleConfirmEdit,
@@ -26,19 +27,41 @@ function Post({
   const [EditedCaption, setEditedCaption] = useState(caption ?? "");
   const [ShowSpinner, setShowSpinner] = useState(false);
   const [Comments, setComments] = useState([]);
+  const [ShowDropdown, setShowDropdown] = useState(false);
   /**if the user is present in LikedBy then he has definately liked
    * else we don't know if the user has un-liked
    */
   const [Liked, setLiked] = useState(
-    LikedBy.indexOf(UserUID) !== -1 ? true : null
+    LikedBy?.indexOf(UserUID) !== -1 ? true : null
   );
   const [DenouncedLiked, setDenouncedLiked] = useState(Liked);
-  const [Likes, setLikes] = useState(LikedBy.length);
+  const [Likes, setLikes] = useState(LikedBy?.length);
   /**to record user intraction and change liked only when user has clicked on it */
   const [UserClicked, setUserClicked] = useState(false);
   const [ShowCommentForm, setShowCommentForm] = useState(false);
 
   const editCaptionInputRef = useRef(null);
+
+  /**add a event listener on document to close dropdown when outside of drop down is clicked */
+  const dropdownContentRef = useRef();
+
+  useEffect(() => {
+    if (userId === UserUID && isHomepage) {
+      const closeDropDown = (event) => {
+        //if the clicked on somewhere inside the dropdown
+        if (
+          dropdownContentRef?.current &&
+          !dropdownContentRef.current.contains(event.target)
+        )
+          setShowDropdown(false);
+      };
+
+      document.body.addEventListener("click", closeDropDown);
+      return () => {
+        document.body.removeEventListener("click", closeDropDown);
+      };
+    }
+  }, []);
 
   /**Focuses automatically when in edit comment mode */
   useEffect(() => {
@@ -47,6 +70,7 @@ function Post({
     }
   }, [editCaptionInputRef]);
 
+  /**for comment set up a real-time listener */
   useEffect(() => {
     let unsubscribe;
 
@@ -132,16 +156,16 @@ function Post({
           >
             <svg
               aria-label="Comment"
-              class="button"
+              className="button"
               fill="#262626"
               height="24"
               viewBox="0 0 48 48"
               width="24"
             >
               <path
-                clip-rule="evenodd"
+                clipRule="evenodd"
                 d="M47.5 46.1l-2.8-11c1.8-3.3 2.8-7.1 2.8-11.1C47.5 11 37 .5 24 .5S.5 11 .5 24 11 47.5 24 47.5c4 0 7.8-1 11.1-2.8l11 2.8c.8.2 1.6-.6 1.4-1.4zm-3-22.1c0 4-1 7-2.6 10-.2.4-.3.9-.2 1.4l2.1 8.4-8.3-2.1c-.5-.1-1-.1-1.4.2-1.8 1-5.2 2.6-10 2.6-11.4 0-20.6-9.2-20.6-20.5S12.7 3.5 24 3.5 44.5 12.7 44.5 24z"
-                fill-rule="evenodd"
+                fillRule="evenodd"
               ></path>
             </svg>
           </span>
@@ -156,7 +180,7 @@ function Post({
   };
 
   const renderAdmin = () => {
-    return (
+    /* return (
       <div className="admin--div">
         <Link to={`/edit/${postId}`} className="button edit">
           Edit
@@ -166,6 +190,38 @@ function Post({
           Delete
           <i className="fa fa-trash"></i>
         </Link>
+      </div>
+    ); */
+    return (
+      <div
+        className="dropdown"
+        onClick={(e) => {
+          e.preventDefault();
+          setShowDropdown(!ShowDropdown);
+        }}
+        ref={dropdownContentRef}
+      >
+        <button className="dropdown-button">
+          <div className="dot"></div>
+          <div className="dot"></div>
+          <div className="dot"></div>
+        </button>
+        <div>
+          <div
+            className="dropdown-content"
+            style={{ display: ShowDropdown ? "block" : "none" }}
+          >
+            <Link to={`/edit/${postId}`} onClick={() => console.log("to edit")}>
+              Edit
+            </Link>
+            <Link
+              to={`/delete/${postId}`}
+              onClick={() => console.log("to delete")}
+            >
+              Delete
+            </Link>
+          </div>
+        </div>
       </div>
     );
   };
@@ -206,13 +262,13 @@ function Post({
           onChange={(e) => setEditedCaption(e.target.value)}
         />
       </form>
-    ) : (
+    ) : caption !== "" ? (
       <div className="post_caption">
         <h3>
-          <strong>{username}</strong> {caption}
+          <strong>{username}</strong> <span className="">{caption}</span>
         </h3>
       </div>
-    );
+    ) : null;
   };
 
   const handleCommentFormSubmit = (comment) => {
@@ -273,9 +329,11 @@ function Post({
       <Link to={`/show/view/${postId}`}>
         <img className="post_image" src={imageUrl} alt={caption} />
       </Link>
-      {renderLikes()}
-      {renderCaption()}
-      {renderComments()}
+      <div className="post__footer">
+        {renderLikes()}
+        {renderCaption()}
+        {renderComments()}
+      </div>
       {/* <div className="post__comment">
         <div className="comment__user">Test</div>
         <div className="comment__text">Test Commnent. Will be removed</div>

@@ -27,7 +27,7 @@
   padding: 16px 15px;
 
   align-items: center;
-  border-bottom: 1px solid light-grey;
+  border-bottom: 1px solid lightgrey;
 }
 
 .post .header__avatar {
@@ -99,13 +99,23 @@
   border-bottom: 1px solid light-grey;
 }
 
+.post__footer {
+  padding: 0px 5px 10px;
+}
+
 .post_caption {
-  padding: 12px 10px 10px;
+  padding: 9px 10px 10px;
 }
 
 .post_caption h3 {
   font-weight: 300;
+  font-size: 1.155em;
+}
+
+.post_caption span {
+  font-weight: 400;
   font-size: 0.975em;
+  letter-spacing: 0.35px;
 }
 
 .post__comment--wrapper {
@@ -121,14 +131,16 @@
 }
 
 .comment__user {
-  margin-right: 8px;
+  margin-right: 4px;
   font-weight: 700;
-  font-size: 0.908em;
+  font-size: 0.875em;
+  letter-spacing: 0.15px;
 }
 
 .comment__text {
-  font-size: 0.91em;
-  letter-spacing: 0.3px;
+  font-size: 0.848em;
+  letter-spacing: 0.5px;
+  font-weight: 400;
 }
 
 .post__comment--moreComments {
@@ -144,7 +156,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 12px 10px 0px;
+  padding: 12px 9px 0px;
 }
 
 .button-span {
@@ -155,7 +167,7 @@
 }
 
 .like-button-span {
-  margin-right: 12px;
+  margin-right: 18px;
 }
 
 .button-span .button {
@@ -165,8 +177,9 @@
 .like-text-span {
   margin-left: 4px;
   letter-spacing: 0.5px;
-  font-size: 0.975em;
+  font-size: 0.955em;
   margin-top: 5px;
+  font-weight: 700;
 }
 
 /** Edit Mode Css **/
@@ -246,4 +259,63 @@
 
 .editableCaption:focus {
   border-bottom: 1px solid #405de6;
+}
+
+/*Custom drop down css*/
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-button {
+  display: flex;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: transparent;
+  padding-right: 10px;
+}
+
+/* .dropdown:focus .dropdown-content {
+  display: block;
+} */
+
+.dropdown .dot {
+  width: 8px;
+  height: 8px;
+  background: #737373;
+  border-radius: 50%;
+  margin-right: 6px;
+  pointer-events: none;
+}
+
+.dropdown-content {
+  position: absolute;
+  background: #f9f9f9;
+  min-width: 80px;
+  display: none;
+  flex-direction: column;
+  box-shadow: 3px 3px 7px 0px rgba(0, 0, 0, 0.2);
+  right: 1px;
+  top: 9px;
+}
+
+.dropdown-content a {
+  text-decoration: none;
+  color: #141414;
+  padding: 12px 30px 10px 10px;
+  display: block;
+  font-family: inherit;
+  background: #fafafa;
+  font-size: 1.275em;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid #cecece;
+}
+
+.dropdown-content a:hover {
+  background: #efefef;
+}
+
+@media screen and (max-width: 600px) {
 }

@@ -19,7 +19,9 @@ function SignedInHomepage({ fetchPosts, posts }) {
     if (posts.length === 0) return <Loader />;
 
     return posts.map((post) => {
-      return <Post key={post.id} data={post.data} postId={post.id} />;
+      return (
+        <Post key={post.id} data={post.data} postId={post.id} isHomepage />
+      );
     });
   };
 

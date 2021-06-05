@@ -78,6 +78,7 @@ export const createPost = (post) => async (dispatch, getState) => {
       caption: post.caption,
       imageUrl: post.imageUrl,
       timestamp: serverTimestamp,
+      LikedBy: [],
     })
     .then(async (docRef) => {
       //successfully posted
@@ -137,7 +138,7 @@ export const editPost = (postId, newCaption) => async (dispatch) => {
     })
     .then(async () => {
       const updatedPost = await db
-        .collection("post")
+        .collection("posts")
         .doc(postId)
         .get()
         .then((doc) => {
@@ -146,7 +147,8 @@ export const editPost = (postId, newCaption) => async (dispatch) => {
           } else {
             return { id: postId, data: {} };
           }
-        });
+        })
+        .catch((err) => console.log(err));
 
       return updatedPost;
     })
