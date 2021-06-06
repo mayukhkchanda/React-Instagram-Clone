@@ -19,7 +19,6 @@ function Signin() {
       })
       .catch((err) => {
         setOAuthError(ShortError(err));
-        //alert(ShortError(err));
       });
   };
 
@@ -50,7 +49,6 @@ function Signin() {
 
         <a href="#" className="form__Fblogin no-background">
           <img
-            //src="https://kpnet.dk/wp-content/uploads/2015/08/facebook-logo-small37.png"
             src={`${process.env.PUBLIC_URL}/assets/images/facebook-logo-small.png`}
             className="fb-logo"
           ></img>

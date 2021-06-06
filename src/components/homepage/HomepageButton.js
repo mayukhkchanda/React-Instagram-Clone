@@ -1,6 +1,7 @@
 import React from "react";
 import "../css/homepage/HomepageButton.css";
 
+/**component for rainbow button*/
 function HomepageButton({ btnText }) {
   return (
     <a

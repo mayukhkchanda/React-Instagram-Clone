@@ -11,6 +11,7 @@ function FileUploadModal({ setModalShow, createPost }) {
   const [File, setFile] = useState(null);
   const [ProgressPercent, setProgressPercent] = useState(0);
   const [NoFileErr, setNoFileErr] = useState("");
+  const [UploadDisable, setUploadDisable] = useState(false);
 
   useEffect(() => {
     if (ProgressPercent === 100) {
@@ -30,16 +31,14 @@ function FileUploadModal({ setModalShow, createPost }) {
   };
 
   const handleFileUpload = (event) => {
-    /* console.log(File);
-    console.log(Caption); */
-
     /**Handle blank file upload */
 
     if (File === null) {
       setNoFileErr("Select an image to upload");
       return;
     }
-    const extension = /^.+\.([^.]+)$/.exec(File?.name)[1]; //returns an object
+    //returns an object of which index-1 is the file extesion
+    const extension = /^.+\.([^.]+)$/.exec(File?.name)[1];
     if (
       !(
         extension === "png" ||
@@ -52,6 +51,9 @@ function FileUploadModal({ setModalShow, createPost }) {
       setNoFileErr("Select .png/.jgep/.gif extension file");
       return;
     }
+
+    /**prevent double submit */
+    setUploadDisable(true);
 
     const storageRef = storage.ref();
 
@@ -129,7 +131,11 @@ function FileUploadModal({ setModalShow, createPost }) {
               style={{ width: `${ProgressPercent}%` }}
             ></div>
           </div>
-          <button onClick={handleFileUpload} className="upload__button">
+          <button
+            onClick={handleFileUpload}
+            className="upload__button"
+            disabled={UploadDisable}
+          >
             Upload
           </button>
         </div>

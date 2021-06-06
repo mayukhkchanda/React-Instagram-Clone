@@ -11,7 +11,6 @@ function PostComment({ post, fetchPost, match }) {
   const id = match.params.id;
 
   useEffect(() => {
-    //console.log(id);
     fetchPost(id);
   }, [id]);
 

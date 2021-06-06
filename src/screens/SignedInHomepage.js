@@ -8,6 +8,7 @@ import { fetchPosts } from "../actions";
 import { connect } from "react-redux";
 import Loader from "../components/global/Loader";
 
+/**Page shown to the user on '/' route when user is signed in*/
 function SignedInHomepage({ fetchPosts, posts }) {
   const [ModalShow, setModalShow] = useState(false);
 

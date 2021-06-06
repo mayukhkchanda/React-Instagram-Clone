@@ -1,5 +1,5 @@
+/**Returns a short and application specific error message */
 export const ShortError = (Err) => {
-  //console.log(Err);
   switch (Err.code) {
     case "auth/user-not-found":
       return "Unregistered Email. Please Sign up to an Account.";

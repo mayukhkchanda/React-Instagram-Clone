@@ -141,6 +141,10 @@
   cursor: pointer;
 }
 
+.upload__button:disabled {
+  background: #6b97e0;
+}
+
 .no-file-selected {
   text-align: center;
   color: #3e81f3;

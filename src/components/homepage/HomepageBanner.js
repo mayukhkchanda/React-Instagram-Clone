@@ -24,7 +24,7 @@ function HomepageBanner() {
 
   return (
     <>
-      <div data-scroll-section className="homepage__banner">
+      <div className="homepage__banner">
         <div className="banner__header--container">
           <h1 className="banner__header">
             Bringing you closer to the people and things you&nbsp;

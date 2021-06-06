@@ -13,7 +13,7 @@ import CommentForm from "../global/CommentForm";
 
 function Post({
   postId,
-  data: { username, imageUrl, caption, userId, likes, LikedBy },
+  data: { username, imageUrl, caption, userId, LikedBy, timestamp },
   UserUID,
   Username,
   isHomepage,
@@ -40,11 +40,29 @@ function Post({
   const [UserClicked, setUserClicked] = useState(false);
   const [ShowCommentForm, setShowCommentForm] = useState(false);
 
+  const [PostDate, setPostDate] = useState(null);
+
   const editCaptionInputRef = useRef(null);
 
-  /**add a event listener on document to close dropdown when outside of drop down is clicked */
-  const dropdownContentRef = useRef();
+  /**Setting the date from epoch to UTC time */
+  useEffect(() => {
+    /**setting the initial date to the epoch and add UTC units */
+    const epoch = new Date(0);
+    if (timestamp !== {}) {
+      epoch.setUTCSeconds(timestamp?.seconds);
 
+      setPostDate(
+        epoch.toLocaleString("default", { month: "long" }).toUpperCase() +
+          " " +
+          epoch.getDate() +
+          "," +
+          epoch.getFullYear()
+      );
+    }
+  }, [timestamp]);
+
+  const dropdownContentRef = useRef();
+  /**add a event listener on document body to close dropdown when outside of drop down is clicked */
   useEffect(() => {
     if (userId === UserUID && isHomepage) {
       const closeDropDown = (event) => {
@@ -75,17 +93,15 @@ function Post({
     let unsubscribe;
 
     if (postId) {
-      //** Sets up real-time listener for comments */
+      /** Sets up real-time listener for comments  */
       unsubscribe = db
         .collection("posts")
         .doc(postId)
         .collection("comments")
         .orderBy("timestamp", "desc")
         .onSnapshot((snapshot) => {
-          //console.log(snapshot.docs);
           setComments(
             snapshot.docs.map((doc) => {
-              // console.log(doc);
               return { id: doc.id, data: doc.data() };
             })
           );
@@ -179,19 +195,8 @@ function Post({
     );
   };
 
+  /**Edit & Delete buttons */
   const renderAdmin = () => {
-    /* return (
-      <div className="admin--div">
-        <Link to={`/edit/${postId}`} className="button edit">
-          Edit
-          <i className="fa fa-edit"></i>
-        </Link>
-        <Link to={`/delete/${postId}`} className="button delete">
-          Delete
-          <i className="fa fa-trash"></i>
-        </Link>
-      </div>
-    ); */
     return (
       <div
         className="dropdown"
@@ -211,15 +216,8 @@ function Post({
             className="dropdown-content"
             style={{ display: ShowDropdown ? "block" : "none" }}
           >
-            <Link to={`/edit/${postId}`} onClick={() => console.log("to edit")}>
-              Edit
-            </Link>
-            <Link
-              to={`/delete/${postId}`}
-              onClick={() => console.log("to delete")}
-            >
-              Delete
-            </Link>
+            <Link to={`/edit/${postId}`}>Edit</Link>
+            <Link to={`/delete/${postId}`}>Delete</Link>
           </div>
         </div>
       </div>
@@ -272,6 +270,7 @@ function Post({
   };
 
   const handleCommentFormSubmit = (comment) => {
+    /**Not called in action creator as this would not change state */
     db.collection("posts").doc(postId).collection("comments").add({
       commentText: comment,
       commentUser: Username,
@@ -284,7 +283,6 @@ function Post({
     const renderedComments = Comments.filter((el, index) =>
       allComments ? true : index < 3
     ).map(({ id, data: { commentUser, commentText } }) => {
-      //console.log(comment);
       return (
         <div key={id} className="post__comment">
           <div className="comment__user">{commentUser}</div>
@@ -292,7 +290,7 @@ function Post({
         </div>
       );
     });
-    //console.log(Comments);
+
     return (
       <div className="post__comment--wrapper">
         {ShowCommentForm ? (
@@ -333,11 +331,8 @@ function Post({
         {renderLikes()}
         {renderCaption()}
         {renderComments()}
+        {PostDate !== null ? <p className="PostDate">{PostDate}</p> : null}
       </div>
-      {/* <div className="post__comment">
-        <div className="comment__user">Test</div>
-        <div className="comment__text">Test Commnent. Will be removed</div>
-      </div> */}
     </div>
   );
 }

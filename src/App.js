@@ -17,14 +17,11 @@ import history from "./history";
 import { signin, signout } from "./actions";
 import { connect } from "react-redux";
 
-//const user = { email: "test", username: "test" };
-
 const App = ({ User, signin, signout }) => {
   useEffect(() => {
     const unsubscribe = authenticator.onAuthStateChanged(function (user) {
       if (user) {
         //User is logged in
-        //console.log(user);
         signin({
           email: user.email,
           username: user.displayName,

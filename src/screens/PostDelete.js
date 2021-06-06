@@ -18,10 +18,12 @@ function PostDelete({ post, fetchPost, deletePost, match }) {
   }, []);
 
   const onBackgroundClick = () => {
+    /**redirect to show post when clicked on background */
     history.push(`/show/view/${postId}`);
   };
 
   const handleConfirmDelete = () => {
+    /**call delete action creator */
     deletePost(postId);
   };
 

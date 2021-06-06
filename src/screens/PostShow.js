@@ -13,7 +13,6 @@ function PostShow({ post, fetchPost, match, User }) {
   const preview = match.params.preview;
 
   useEffect(() => {
-    //console.log(id);
     fetchPost(id);
   }, [id]);
 

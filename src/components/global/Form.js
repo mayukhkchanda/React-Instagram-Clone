@@ -21,7 +21,6 @@ function Form({
 
   /**should Submit be disabled? */
   const isDisabled = (values = {}, errors = {}) => {
-    //console.log(values);
     if (values?.email === "" || values?.password === "") {
       return true;
     }
@@ -40,7 +39,7 @@ function Form({
     else return null;
   };
 
-  /**Render OAuth Message */
+  /**Render OAuth Message received after submitting the form */
   const renderOAuthMsg = (Message) => {
     return <div className="google-auth-message">{Message}</div>;
   };
@@ -102,7 +101,6 @@ function Form({
           <form onSubmit={handleSubmit} className="form">
             {showUsernameFeild ? (
               <label className="form__input--container">
-                {/* <span>Phone number, username, or email</span>  */}
                 <input
                   name="username"
                   type="text"
@@ -120,7 +118,6 @@ function Form({
               </label>
             ) : null}
             <label className="form__input--container">
-              {/* <span>Phone number, username, or email</span>  */}
               <input
                 name="email"
                 type="text"
@@ -137,7 +134,6 @@ function Form({
             </label>
             {renderErr(errors.email, touched.email)}
             <label className="form__input--container">
-              {/* <span>Password</span>  */}
               <input
                 name="password"
                 type="password"

@@ -4,10 +4,9 @@ import HomepageButton from "./HomepageButton";
 
 function HomepageCommunity() {
   return (
-    <div data-scroll data-scroll-section id="scroll-fixed-target">
-      <div data-scroll /* data-scroll-speed={-1} */>
+    <div>
+      <div>
         <div
-          data-scroll
           style={{
             backgroundImage: `url("${process.env.PUBLIC_URL}/assets/images/background-attachment-image.jpg")`,
             height: "100vh",

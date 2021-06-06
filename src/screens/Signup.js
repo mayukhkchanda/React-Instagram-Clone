@@ -32,15 +32,13 @@ function Signup({ signin }) {
               username: authUser.user.displayName,
               userId: authUser.user.uid,
             });
-            //console.log(authUser);
+
             history.push("/");
           })
           .catch((error) => alert(error.message));
       })
       .catch((err) => {
-        //console.log(err);
         setOAuthError(ShortError(err));
-        //alert(ShortError(err));
       });
   };
 

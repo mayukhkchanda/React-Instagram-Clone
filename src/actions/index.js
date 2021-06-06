@@ -21,40 +21,29 @@ export const signin = (user) => {
 };
 
 export const signout = () => {
-  //history.push("/"); //this kicks back the user to the homepage when he's signed out
-
   return {
     type: SIGN_OUT,
     payload: null,
   };
 };
 
+/**fetching documents from a collection is shallow.
+ * only the documents that are direct childrens are fetched
+ * and not the sub-collections of the documents.
+ * Sub-collections must be fetched seperately.
+ */
+
 /** Fetch all posts */
 export const fetchPosts = () => async (dispatch, getState) => {
-  /* console.log(Object.values(getState().posts).length);
-  const getOptions =
-    Object.values(getState().posts).length > 0
-      ? { source: "cache" }
-      : { source: "default" }; */
-
   const posts = await db
     .collection("posts")
     .orderBy("timestamp", "desc") //get the lastest created post
-    .get(/* getOptions */)
+    .get()
     .then((querySnapshot) => {
-      /*  querySnapshot.forEach((doc) => {
-              // doc.data() is never undefined for query doc snapshots
-              console.log(doc.data());
-            }); */
-
-      //console.log(querySnapshot);
-
       return querySnapshot.docs.map((doc) => {
         return { id: doc.id, data: doc.data() };
       });
     });
-
-  //console.log(posts);
 
   dispatch({
     type: FETCH_POSTS,
@@ -63,7 +52,6 @@ export const fetchPosts = () => async (dispatch, getState) => {
 };
 
 //**Create a post  */
-//post ={ caption:'...', imageUrl:'...' }
 export const createPost = (post) => async (dispatch, getState) => {
   const username = getState().user.username;
   const userId = getState().user.userId;
@@ -82,6 +70,7 @@ export const createPost = (post) => async (dispatch, getState) => {
     })
     .then(async (docRef) => {
       //successfully posted
+      //fetch the updated post so that state can be updated
       const uploadedPost = await db
         .collection("posts")
         .doc(docRef.id)
@@ -96,13 +85,12 @@ export const createPost = (post) => async (dispatch, getState) => {
       console.log(error);
     });
 
-  //console.log(postRef);
-
   dispatch({
     type: CREATE_POST,
     payload: postRef,
   });
 
+  //redirect the user to post-show component with a notification for post upload
   history.push(`/show/upload/${postRef.id}`);
 };
 
@@ -114,7 +102,6 @@ export const fetchPost = (id) => async (dispatch) => {
     .get()
     .then((doc) => {
       if (doc.exists) {
-        // console.log(doc.data());
         return { id: doc.id, data: doc.data() };
       } else {
         return { id: id, data: {} };
@@ -156,13 +143,12 @@ export const editPost = (postId, newCaption) => async (dispatch) => {
       console.log("Error getting document:", error);
     });
 
-  //console.log(updatedPostRef);
-
   dispatch({
     type: EDIT_POST,
     payload: updatedPostRef,
   });
 
+  //redirect the user to post-show component with a notification for post update
   history.push(`/show/update/${postId}/`);
 };
 
@@ -185,10 +171,11 @@ export const deletePost = (postId) => async (dispatch) => {
     payload: postId,
   });
 
+  //redirect user to homepage
   history.push("/");
 };
 
-/**Add like on a post*/
+/**Add like on a post by adding the User id of the currently signed-in user*/
 export const addLike = (postId) => async (dispatch, getState) => {
   const UserUID = getState().user.userId;
 
@@ -210,15 +197,13 @@ export const addLike = (postId) => async (dispatch, getState) => {
       return postRef;
     });
 
-  //console.log(updatePost);
-
   dispatch({
     type: LIKE_POST,
     payload: updatePost,
   });
 };
 
-/**Add unlike on a post*/
+/**Add unlike on a post by removing the User id of the currently signed-in user*/
 export const addUnlike = (postId) => async (dispatch, getState) => {
   const UserUID = getState().user.userId;
 
@@ -239,8 +224,6 @@ export const addUnlike = (postId) => async (dispatch, getState) => {
 
       return postRef;
     });
-
-  //console.log(updatePost);
 
   dispatch({
     type: UNLIKE_POST,

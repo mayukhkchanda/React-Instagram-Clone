@@ -3,7 +3,6 @@ import "../css/homepage/HomepageHero.css";
 import HomepageButton from "./HomepageButton";
 
 function HomepageHero({
-  url,
   alt,
   showIcons,
   flipped,
