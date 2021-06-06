@@ -66,7 +66,7 @@ export const createPost = (post) => async (dispatch, getState) => {
       caption: post.caption,
       imageUrl: post.imageUrl,
       timestamp: serverTimestamp,
-      LikedBy: [],
+      LikedBy: [""],
     })
     .then(async (docRef) => {
       //successfully posted
@@ -159,7 +159,7 @@ export const deletePost = (postId) => async (dispatch) => {
     .doc(postId)
     .delete()
     .then(() => {
-      console.log("Document successfully deleted ");
+      //document successfully deleted
       return {};
     })
     .catch((error) => {
