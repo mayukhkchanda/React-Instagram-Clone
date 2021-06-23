@@ -59,9 +59,35 @@ a {
   font-size: 1.175em;
 }
 
+.SignedInHomepage .SignedInHomepage__header {
+  width: auto;
+}
+
+.no-follow {
+  margin-top: 30px;
+  text-align: center;
+  letter-spacing: 0.5px;
+  font-weight: 100;
+  font-family: helvetica;
+  padding: 20px 0px;
+}
+
+.no-follow p {
+  font-size: 1.45rem;
+  font-weight: 100;
+  color: #656565;
+}
+
+.no-follow h3 {
+  margin-top: 10px;
+  font-weight: 400;
+  color: #757575;
+}
+
 @media screen and (max-width: 600px) {
   .SignedInHomepage .SignedInHomepage__header {
     position: fixed;
+    min-width: 95%;
   }
 
   .SignedInHomepage .ImageUpload {
@@ -74,5 +100,9 @@ a {
 
   .SignedInHomepage .createPost {
     padding: 11px 10px;
+  }
+
+  .no-follow {
+    padding: 20px;
   }
 }

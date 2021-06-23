@@ -16,6 +16,7 @@ import history from "./history";
 
 import { signin, signout } from "./actions";
 import { connect } from "react-redux";
+import PeopleSuggestion from "./components/global/PeopleSuggestion";
 
 const App = ({ User, signin, signout }) => {
   useEffect(() => {
@@ -63,6 +64,11 @@ const App = ({ User, signin, signout }) => {
             path="/comments/:id"
             exact
             component={User ? PostComment : Signin}
+          />
+          <Route
+            path="/user/suggestion"
+            exact
+            component={User ? PeopleSuggestion : Signin}
           />
         </Switch>
       </div>

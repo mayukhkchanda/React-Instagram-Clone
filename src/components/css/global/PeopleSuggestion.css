@@ -1,0 +1,37 @@
+.UserSuggestions {
+  margin-top: 30px;
+  text-align: center;
+  letter-spacing: 0.5px;
+  font-weight: 100;
+  font-family: helvetica;
+  padding: 20px 0px;
+  width: 99%;
+}
+
+.UserSuggestions p {
+  font-size: 1.45rem;
+  font-weight: 100;
+  color: #656565;
+}
+
+.UserSuggestions h3 {
+  margin-top: 10px;
+  font-weight: 400;
+  color: #757575;
+}
+
+.UserSuggestions .suggested-users {
+  display: flex;
+  flex-direction: row;
+  overflow-y: hidden;
+  overflow-x: scroll;
+  padding: 8px;
+  max-width: 100%;
+  /*hide scroll bar in safari, morzilla and IE*/
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.UserSuggestions .suggested-users::-webkit-scrollbar {
+  display: none;
+}

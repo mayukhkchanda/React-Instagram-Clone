@@ -3,21 +3,54 @@ import {
   SIGN_OUT,
   FETCH_POSTS,
   FETCH_POST,
+  FETCH_USERS,
   CREATE_POST,
   EDIT_POST,
   DELETE_POST,
   LIKE_POST,
   UNLIKE_POST,
+  UPDATE_USER_INFO,
+  CREATE_USER_DOC,
+  FOLLOW_USER,
+  UNFOLLOW_USER,
 } from "./types";
 import history from "../history";
 import { db } from "../firebase";
 import firebase from "firebase";
 
-export const signin = (user) => {
-  return {
+export const signin = (user) => async (dispatch) => {
+  const userRef = await db
+    .collection("users")
+    .doc(user.userId)
+    .get()
+    .then((doc) => {
+      if (doc.exists) {
+        return {
+          userId: doc.id,
+          email: doc.data().email,
+          username: doc.data().username,
+          following: doc.data().following,
+        };
+      } else {
+        //new user just got created and user data is getting updated
+        return {
+          userId: user.userId,
+          email: user.email,
+          username: user.username,
+          following: [user.userId],
+        };
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
+  // console.log(userRef);
+
+  dispatch({
     type: SIGN_IN,
-    payload: user,
-  };
+    payload: userRef,
+  });
 };
 
 export const signout = () => {
@@ -35,19 +68,48 @@ export const signout = () => {
 
 /** Fetch all posts */
 export const fetchPosts = () => async (dispatch, getState) => {
-  const posts = await db
+  // const posts = await db
+  //   .collection("posts")
+  //   .orderBy("timestamp", "desc") //get the lastest created post
+  //   .get()
+  //   .then((querySnapshot) => {
+  //     return querySnapshot.docs.map((doc) => {
+  //       return { id: doc.id, data: doc.data() };
+  //     });
+  //   });
+
+  const following = getState().user.following;
+
+  // console.log(following);
+
+  // Invalid Query. A non-empty array is required for 'in' filters
+  const posts = db
     .collection("posts")
-    .orderBy("timestamp", "desc") //get the lastest created post
+    .where("userId", "in", following)
+    // .orderBy("timestamp", "desc") //would require composite index to work
+    .limit(5)
     .get()
-    .then((querySnapshot) => {
-      return querySnapshot.docs.map((doc) => {
+    .then(async (querySnapshot) => {
+      /* querySnapshot.forEach((doc) => {
+        console.log(doc.id, " => ", doc.data());
+      }); */
+      // console.log(querySnapshot);
+      const allPosts = await querySnapshot.docs.map((doc) => {
+        // console.log(doc.id, " => ", doc.data());
         return { id: doc.id, data: doc.data() };
       });
-    });
 
-  dispatch({
-    type: FETCH_POSTS,
-    payload: posts,
+      return allPosts;
+    })
+    .catch((error) => console.log(error));
+
+  //getting Promise back
+  Promise.resolve(posts).then(function (value) {
+    // console.log(value);
+    dispatch({
+      type: FETCH_POSTS,
+      payload: value,
+    });
   });
 };
 
@@ -95,7 +157,7 @@ export const createPost = (post) => async (dispatch, getState) => {
 };
 
 /** Fetch a particular post */
-export const fetchPost = (id) => async (dispatch) => {
+export const fetchPost = (id) => async (dispatch, getState) => {
   const post = await db
     .collection("posts")
     .doc(id)
@@ -112,6 +174,35 @@ export const fetchPost = (id) => async (dispatch) => {
   dispatch({
     type: FETCH_POST,
     payload: post,
+  });
+};
+
+/**Fetch the list of users who are not followed by the user*/
+export const fetchUsers = () => async (dispatch, getState) => {
+  const following = getState().user.following;
+
+  const users = await db
+    .collection("users")
+    .where("userId", "not-in", following)
+    .limit(10)
+    .get()
+    .then(async (querySnapshot) => {
+      const usersRef = await querySnapshot.docs.map((doc) => {
+        // console.log(doc.id, " => ", doc.data());
+        return { userId: doc.id, userData: doc.data() };
+      });
+
+      return usersRef;
+    })
+    .catch((error) => {
+      console.log("Error getting documents: ", error);
+    });
+
+  // console.log(users);
+
+  dispatch({
+    type: FETCH_USERS,
+    payload: users,
   });
 };
 
@@ -230,3 +321,159 @@ export const addUnlike = (postId) => async (dispatch, getState) => {
     payload: updatePost,
   });
 };
+
+/**Get user's following */
+export const updateUserInfo = (newUser) => async (dispatch, getState) => {
+  const userId = newUser.userId;
+
+  const userInfo = await db
+    .collection("users")
+    .doc(userId)
+    .get()
+    .then((doc) => {
+      if (doc.exists) {
+        return {
+          userId: doc.id,
+          email: doc.data().email,
+          username: doc.data().username,
+          following: doc.data().following,
+        };
+      }
+    });
+
+  console.log(userInfo);
+
+  dispatch({
+    type: UPDATE_USER_INFO,
+    payload: userInfo,
+  });
+};
+
+/**Create a new document in 'users' collection for this user */
+export const createUserDoc = (newUser) => async (dispatch) => {
+  const userRef = await db
+    .collection("users")
+    .doc(newUser.userId)
+    .set({
+      userId: newUser.userId,
+      email: newUser.email,
+      username: newUser.username,
+      following: newUser.following,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+    })
+    .then(async (docRef) => {
+      /**Migth not need this */
+      const userInfo = await db
+        .collection("users")
+        .doc(newUser.userId)
+        .get()
+        .then((doc) => {
+          if (doc.exists) {
+            return {
+              userId: doc.id,
+              email: doc.data().email,
+              username: doc.data().username,
+              following: doc.data().following,
+            };
+          }
+        })
+        .catch((err) => console.log(err));
+
+      return userInfo;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
+  console.log(userRef);
+
+  dispatch({
+    type: CREATE_USER_DOC,
+    payload: userRef,
+  });
+};
+
+/**Follow user */
+export const followUser = (followersUserId) => async (dispatch, getState) => {
+  const userId = getState().user.userId;
+
+  const updatedUserRef = await db
+    .collection("users")
+    .doc(userId)
+    .update({
+      following: firebase.firestore.FieldValue.arrayUnion(followersUserId),
+    })
+    .then(async () => {
+      const userRef = await db
+        .collection("users")
+        .doc(userId)
+        .get()
+        .then((doc) => {
+          if (doc.exists) {
+            return {
+              userId: doc.id,
+              email: doc.data().email,
+              username: doc.data().username,
+              following: doc.data().following,
+            };
+          } else {
+            console.log("No such document!");
+          }
+        });
+
+      // console.log(userRef);
+
+      return userRef;
+    })
+    .catch((error) => {
+      console.error("Error updating document: ", error);
+    });
+
+  // console.log(updatedUserRef);
+
+  dispatch({
+    type: FOLLOW_USER,
+    payload: updatedUserRef,
+  });
+};
+
+/**Unfollow user */
+export const unfollowUser =
+  (unfollowersUserId) => async (dispatch, getState) => {
+    const userId = getState().user.userId;
+
+    const updatedUserRef = await db
+      .collection("users")
+      .doc(userId)
+      .update({
+        following: firebase.firestore.FieldValue.arrayRemove(unfollowersUserId),
+      })
+      .then(async () => {
+        const userRef = await db
+          .collection("users")
+          .doc(userId)
+          .get()
+          .then((doc) => {
+            if (doc.exists) {
+              return {
+                userId: doc.id,
+                email: doc.data().email,
+                username: doc.data().username,
+                following: doc.data().following,
+              };
+            } else {
+              console.log("No such document!");
+            }
+          });
+
+        return userRef;
+      })
+      .catch((error) => {
+        console.error("Error updating document: ", error);
+      });
+
+    dispatch({
+      type: UNFOLLOW_USER,
+      payload: updatedUserRef,
+    });
+  };

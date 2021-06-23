@@ -6,6 +6,7 @@ import {
   DELETE_POST,
   LIKE_POST,
   UNLIKE_POST,
+  SIGN_OUT
 } from "../actions/types";
 import _ from "lodash";
 
@@ -23,6 +24,10 @@ const PostReducer = (posts = {}, action) => {
 
     case DELETE_POST:
       return _.omit(posts, [action.payload]);
+    
+      //clear post object after sign-out
+    case SIGN_OUT:
+      return {};
 
     default:
       return posts;

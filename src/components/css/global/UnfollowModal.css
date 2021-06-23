@@ -1,0 +1,65 @@
+.user-unfollow-modal {
+  border-radius: 8px;
+  font-family: helvetica;
+  border: 1px solid #cecece;
+  overflow: hidden;
+  letter-spacing: 0.2px;
+}
+
+.user-unfollow-modal .unfollow-overlay {
+  background: #111;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 111vh;
+  opacity: 0.58;
+  z-index: 6;
+  overflow: hidden;
+}
+
+.unfollow-modal-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    z-index: 10;
+    background: #fafafa;
+    position: absolute;
+    top: 40%;
+    min-width: 275px;
+    border-radius: 1pc;
+    overflow: hidden;
+    margin: 0 auto;
+    left: calc(50% - 137px);
+}
+
+.user-unfollow-modal .user-avatar {
+  height: 85px;
+  width: 85px;
+  border-radius: 50%;
+  margin: 20px 0px;
+  border: 1px solid #bebebe;
+}
+
+.user-unfollow-modal .unfollow-text {
+  margin: 15px 0px;
+  color: #454545;
+  font-size: 0.975em;
+}
+
+.user-unfollow-modal button {
+  border: none;
+  outline: none;
+  background: white;
+  cursor: pointer;
+  width: 100%;
+  border-top: 1px solid #bebebe;
+  padding: 13px 0px;
+  letter-spacing: 0.2px;
+}
+
+.user-unfollow-modal .confirm {
+  color: #ed4956;
+  font-weight: 600;
+}

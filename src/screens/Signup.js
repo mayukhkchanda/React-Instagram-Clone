@@ -9,9 +9,9 @@ import Form from "../components/global/Form";
 import { authenticator } from "../firebase";
 
 import { connect } from "react-redux";
-import { signin } from "../actions";
+import { signin, createUserDoc } from "../actions";
 
-function Signup({ signin }) {
+function Signup({ signin, createUserDoc }) {
   const [OAuthError, setOAuthError] = useState("");
 
   const onFormSubmit = ({ username, email, password }) => {
@@ -31,6 +31,14 @@ function Signup({ signin }) {
               email: authUser.user.email,
               username: authUser.user.displayName,
               userId: authUser.user.uid,
+            });
+
+            //create a document for this user in the 'users' collection
+            createUserDoc({
+              email: authUser.user.email,
+              username: authUser.user.displayName,
+              userId: authUser.user.uid,
+              following: [authUser.user.uid],
             });
 
             history.push("/");
@@ -91,4 +99,5 @@ function Signup({ signin }) {
 
 export default connect(null, {
   signin,
+  createUserDoc,
 })(Signup);
