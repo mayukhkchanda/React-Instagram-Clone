@@ -1,20 +1,25 @@
 import React, { useEffect } from "react";
 import "../css/global/PeopleSuggestion.css";
 
-// import { Link } from "react-router-dom"; 
+// import { Link } from "react-router-dom";
 
 import { fetchUsers } from "../../actions";
 import { connect } from "react-redux";
 import PeopleCard from "./PeopleCard";
 
 /**Shows a list of users who the current user is not following */
-const PeopleSuggestion = ({ fetchUsers, SuggestedUsers }) => {
+const PeopleSuggestion = ({
+  fetchUsers,
+  SuggestedUsers,
+  paraText,
+  headerText,
+}) => {
   useEffect(() => {
     fetchUsers();
   }, []);
 
   const renderUsers = () => {
-    if (SuggestedUsers.length == 0) return null;
+    if (SuggestedUsers.length === 0) return null;
 
     const renderedList = SuggestedUsers.map((suggestedUser) => {
       //   console.log(suggestedUser);
@@ -31,8 +36,8 @@ const PeopleSuggestion = ({ fetchUsers, SuggestedUsers }) => {
 
   return (
     <div className="UserSuggestions">
-      <p>Welcome to Instagram</p>
-      <h3>When you follow somebody you can see their photos here.</h3>
+      <p>{paraText}</p>
+      <h3>{headerText}</h3>
 
       <div className="suggested-users">{renderUsers()}</div>
     </div>

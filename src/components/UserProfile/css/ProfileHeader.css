@@ -1,0 +1,53 @@
+.profile__header {
+  width: 836px;
+  background: #fafafa;
+  margin: 80px auto 0px;
+  display: flex;
+  align-items: center;
+  font-family: helvetica;
+  padding: 16px;
+  padding-bottom: 31px;
+  border-bottom: 1px solid #cecece;
+}
+
+.header__avatar img {
+  width: 150px;
+  object-fit: contain;
+  border-radius: 100%;
+}
+
+.header__details {
+  margin-left: 75px;
+}
+
+.header__userinfo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 18px;
+}
+
+.header__userinfo h3 {
+  font-weight: 100;
+  font-size: calc(1.375em + 0.5vw);
+  color: #363636;
+}
+
+.header__userinfo button {
+  border: none;
+  outline: none;
+  background: transparent;
+  cursor: pointer;
+  margin-left: 12px;
+  padding-top: 0.3995vw;
+}
+
+.header__userinfo button svg {
+  width: 23px;
+}
+
+.header__activity span {
+  font-size: calc(0.875em + 0.5vw);
+  margin-right: calc(16px + 1.5vw);
+}

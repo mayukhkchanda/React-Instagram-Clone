@@ -9,7 +9,7 @@ a {
 }
 
 .SignedInHomepage__posts {
-  margin-top: 20px;
+  margin-top: 110px;
 
   display: flex;
   flex-direction: column;
@@ -26,7 +26,7 @@ a {
   box-sizing: border-box;
   width: 100%;
   max-width: 500px;
-  margin: 20px auto;
+  margin: 100px auto 25px;
   background: #eaeaea;
   padding: 5px;
   color: #313131;
@@ -82,6 +82,84 @@ a {
   margin-top: 10px;
   font-weight: 400;
   color: #757575;
+}
+
+/*Feed footer css*/
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.feed__footer {
+  max-width: 500px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #fafafa;
+
+  margin-top: 60px;
+  padding: 40px 0px;
+
+  font-family: helvetica;
+}
+
+.footer__checkmark {
+  display: flex;
+  flex-direction: row;
+}
+
+.line {
+  background: #acacac;
+  height: 1px;
+  width: 180px;
+  position: relative;
+  top: 44px;
+}
+
+.line--left {
+  margin-right: 10px;
+}
+
+.line--right {
+  margin-left: 10px;
+}
+
+.checkmark svg {
+  fill: #fafafa;
+  border: 1px solid #757575;
+  border-radius: 50%;
+  background: #0095f6;
+}
+
+.footer__checkmark {
+  margin-bottom: 40px;
+}
+
+.footer__content {
+  text-align: center;
+}
+
+.footer__content h2 {
+  font-size: calc(1.4775em + 0.25vw);
+  font-weight: 500;
+  letter-spacing: 0.4px;
+  margin-bottom: 18px;
+}
+
+.footer__content h3 {
+  font-weight: 400;
+  letter-spacing: 0.24px;
+  color: #757575;
+}
+
+.content__subheader .subheader__link {
+  font-weight: 600;
+  color: #0095f6;
+  font-size: 1.1em;
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 600px) {

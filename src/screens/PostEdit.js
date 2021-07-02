@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Post from "../components/SignedInHomepage/Post";
 import Header from "../components/SignedInHomepage/Header";
 import Loader from "../components/global/Loader";
@@ -11,6 +11,8 @@ import { connect } from "react-redux";
 
 function PostEdit({ post, fetchPost, editPost, match }) {
   const postId = match.params.id;
+
+  const [IsModalShowing, setModalShowing] = useState(false);
 
   useEffect(() => {
     fetchPost(postId);
@@ -27,8 +29,8 @@ function PostEdit({ post, fetchPost, editPost, match }) {
   };
 
   return (
-    <div className="PostEdit">
-      <Header />
+    <div className={`PostEdit ${IsModalShowing ? "no-scroll" : ""}`}>
+      <Header setModalShowing={setModalShowing} />
 
       {post ? (
         <div className="PostEdit__postWrapper">

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./css/PostComment.css";
 import Header from "../components/SignedInHomepage/Header";
 import Post from "../components/SignedInHomepage/Post";
@@ -7,8 +7,11 @@ import { fetchPost } from "../actions";
 import { connect } from "react-redux";
 import Loader from "../components/global/Loader";
 
+/**Show all comments on a post */
 function PostComment({ post, fetchPost, match }) {
   const id = match.params.id;
+
+  const [IsModalShowing, setModalShowing] = useState(false);
 
   useEffect(() => {
     fetchPost(id);
@@ -16,8 +19,8 @@ function PostComment({ post, fetchPost, match }) {
 
   const renderContent = () => {
     return (
-      <div className="PostComment">
-        <Header />
+      <div className={`PostComment ${IsModalShowing ? "no-scroll" : ""}`}>
+        <Header setModalShowing={setModalShowing} />
 
         {post ? (
           <div className="PostComment__postWrapper">

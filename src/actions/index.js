@@ -4,6 +4,9 @@ import {
   FETCH_POSTS,
   FETCH_POST,
   FETCH_USERS,
+  FETCH_FOLLOWERS,
+  FETCH_FOLLOWING,
+  FETCH_POST_OF_USER,
   CREATE_POST,
   EDIT_POST,
   DELETE_POST,
@@ -66,7 +69,7 @@ export const signout = () => {
  * Sub-collections must be fetched seperately.
  */
 
-/** Fetch all posts */
+/** Fetch posts of only the people who the user is following*/
 export const fetchPosts = () => async (dispatch, getState) => {
   // const posts = await db
   //   .collection("posts")
@@ -156,7 +159,7 @@ export const createPost = (post) => async (dispatch, getState) => {
   history.push(`/show/upload/${postRef.id}`);
 };
 
-/** Fetch a particular post */
+/** Fetch a particular post with post id */
 export const fetchPost = (id) => async (dispatch, getState) => {
   const post = await db
     .collection("posts")
@@ -177,7 +180,112 @@ export const fetchPost = (id) => async (dispatch, getState) => {
   });
 };
 
-/**Fetch the list of users who are not followed by the user*/
+/**Fetch all posts made by this user with userId. Used in profile screen */
+export const fetchPostOfUserWithId = (userId) => async (dispatch) => {
+  const userPosts = await db
+    .collection("posts")
+    .where("userId", "==", userId)
+    .get()
+    .then((querySnapshot) => {
+      //if there are any post made by this user
+      if (querySnapshot.docs.length > 0) {
+        /**map all posts objects to an array */
+        const posts = querySnapshot.docs.map((doc) => {
+          // console.log(doc.id, " => ", doc.data());
+          return { id: doc.id, data: doc.data() };
+        });
+        return posts;
+      } else {
+        /**return empty array */
+        return [];
+      }
+    });
+
+  // console.log(userPosts);
+
+  dispatch({
+    type: FETCH_POST_OF_USER,
+    payload: userPosts,
+  });
+};
+
+/**Fetch all the followers of this user i.e. this user's followers */
+export const fetchFollowers = () => async (dispatch, getState) => {
+  const userId = getState().user.userId;
+
+  const followers = await db
+    .collection("users")
+    .where("following", "array-contains", userId)
+    .get()
+    .then((querySnapshot) => {
+      //if any user follows current user
+      if (querySnapshot.docs.length > 0) {
+        /**map all user documents to any array */
+        const Followers = querySnapshot.docs.map((doc) => {
+          // console.log(doc.id, " => ", doc.data());
+          return { userId: doc.id, userData: doc.data() };
+        });
+        return Followers;
+      } else {
+        /**return empty array */
+        return [];
+      }
+    })
+    .catch((err) => console.log(err));
+
+  dispatch({
+    type: FETCH_FOLLOWERS,
+    payload: followers,
+  });
+};
+
+/** Remove the signed-in user from the following of the provided user's id */
+export const removeFollower = (userId) => async (dispatch, getState) => {
+  // this user id needs to be removed from the following
+  // array of the userId
+  const signedInUserId = getState().user.userId;
+
+  // remove the signed-in user's id from the provided user's userId
+  db.collection("users")
+    .doc(userId)
+    .update({
+      following: firebase.firestore.FieldValue.arrayRemove(signedInUserId),
+    })
+    .then(() => console.log("User removed successfully"))
+    .catch((err) => console.log(err));
+};
+
+/**Fetch all users who the currently signed-in user follows */
+export const fetchFollowing = () => async (dispatch, getState) => {
+  const following = getState().user.following;
+
+  const UserFollowing = await db
+    .collection("users")
+    .where("userId", "in", following)
+    .get()
+    .then((querySnapshot) => {
+      //if this user is following some other user
+      if (querySnapshot.docs.length > 0) {
+        /**map all user docs to an array */
+        const Followings = querySnapshot.docs.map((doc) => {
+          // console.log(doc.id, " => ", doc.data());
+          return { userId: doc.id, userData: doc.data() };
+        });
+        return Followings;
+      } else {
+        /**return empty array */
+        return [];
+      }
+    })
+    .catch((err) => console.log(err));
+
+  dispatch({
+    type: FETCH_FOLLOWING,
+    payload: UserFollowing,
+  });
+};
+
+/**Fetch the list of users who are !!NOT FOLLOWED!! by the user*/
 export const fetchUsers = () => async (dispatch, getState) => {
   const following = getState().user.following;
 

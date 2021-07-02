@@ -3,7 +3,7 @@
   padding: 0;
 }
 
-.SignedInHomepage__header {
+/* .SignedInHomepage__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -48,4 +48,41 @@
   .SignedInHomepage_auth-button {
     font-weight: 600;
   }
+} */
+
+.header {
+  background: #fafafa;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 18px 0px 8px 18px;
+  border-bottom: 1px solid #cecece;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1;
+}
+
+.header_image {
+  align-self: flex-start;
+  margin-left: 15px;
+}
+
+.header_image img {
+  width: calc(100px + 1vw);
+  object-fit: contain;
+  align-self: flex-start;
+}
+
+.header__nav {
+  align-self: flex-end;
+}
+
+.nav__icon {
+  margin-right: calc(38px + 1.5vw);
+}
+
+.nav__icon svg {
+  width: 30px;
+  cursor: pointer;
 }

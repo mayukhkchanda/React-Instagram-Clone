@@ -16,7 +16,10 @@ import history from "./history";
 
 import { signin, signout } from "./actions";
 import { connect } from "react-redux";
-import PeopleSuggestion from "./components/global/PeopleSuggestion";
+import UserProfile from "./screens/UserProfile";
+import UserFollowers from "./screens/UserFollowers";
+import UserFollowing from "./screens/UserFollowing";
+import NewFollowers from "./screens/NewFollowers";
 
 const App = ({ User, signin, signout }) => {
   useEffect(() => {
@@ -68,7 +71,22 @@ const App = ({ User, signin, signout }) => {
           <Route
             path="/user/suggestion"
             exact
-            component={User ? PeopleSuggestion : Signin}
+            component={User ? NewFollowers : Signin}
+          />
+          <Route
+            path="/user/profile"
+            exact
+            component={User ? UserProfile : Signin}
+          />
+          <Route
+            path="/:userId/followers"
+            exact
+            component={User ? UserFollowers : Signin}
+          />
+          <Route
+            path="/:userId/following"
+            exact
+            component={User ? UserFollowing : Signin}
           />
         </Switch>
       </div>

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import DeleteModal from "../components/global/DeleteModal";
 import Post from "../components/SignedInHomepage/Post";
 import Loader from "../components/global/Loader";
@@ -12,6 +12,8 @@ import { connect } from "react-redux";
 
 function PostDelete({ post, fetchPost, deletePost, match }) {
   const postId = match.params.id;
+
+  const [IsModalShowing, setModalShowing] = useState(false);
 
   useEffect(() => {
     fetchPost(postId);
@@ -28,8 +30,8 @@ function PostDelete({ post, fetchPost, deletePost, match }) {
   };
 
   return (
-    <div className="PostDelete">
-      <Header />
+    <div className={`PostDelete ${IsModalShowing ? "no-scroll" : ""}`}>
+      <Header setModalShowing={setModalShowing} />
       {post ? (
         <>
           <div className="PostDelete_Post">

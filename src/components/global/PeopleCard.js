@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../css/global/PeopleCard.css";
 import { db } from "../../firebase";
-import UnfollowModal from "../global/UnfollowModal";
+import Modal from "../global/Modal";
 
 import { followUser, unfollowUser } from "../../actions";
 import { connect } from "react-redux";
@@ -70,10 +70,6 @@ const PeopleCard = ({
       followUser(userId);
     } else {
       setShowUnfollowModal(true);
-
-      // setFollowing(false);
-      /**call un-follow action creator here */
-      // unfollowUser(userId);
     }
   };
 
@@ -110,7 +106,8 @@ const PeopleCard = ({
       </button>
 
       {ShowUnfollowModal ? (
-        <UnfollowModal
+        <Modal
+          isUnFollowModal
           Username={username}
           onConfirmClick={handleConfirmClick}
           onCancelClick={handleCancelClick}

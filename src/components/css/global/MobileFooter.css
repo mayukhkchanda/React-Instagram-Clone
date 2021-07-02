@@ -1,0 +1,27 @@
+.footer {
+  max-width: 738px;
+  margin: 0 auto;
+}
+
+.footer__nav {
+  display: flex;
+  align-items: center;
+  background: #fafafa;
+  justify-content: space-around;
+  padding: 4px;
+  border-top: 1px solid #cecece;
+}
+
+.nav__icon svg {
+  width: 32px;
+  cursor: pointer;
+}
+
+.nav__icon.upload svg > path {
+  fill: white;
+}
+
+.nav__icon.upload svg {
+  background: #141414;
+  border-radius: 50%;
+}

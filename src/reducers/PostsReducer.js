@@ -1,18 +1,20 @@
 import {
   FETCH_POSTS,
-  CREATE_POST,
   FETCH_POST,
+  FETCH_POST_OF_USER,
+  CREATE_POST,
   EDIT_POST,
   DELETE_POST,
   LIKE_POST,
   UNLIKE_POST,
-  SIGN_OUT
+  SIGN_OUT,
 } from "../actions/types";
 import _ from "lodash";
 
 const PostReducer = (posts = {}, action) => {
   switch (action.type) {
     case FETCH_POSTS:
+    case FETCH_POST_OF_USER:
       return _.mapKeys(action.payload, "id");
 
     case FETCH_POST:
@@ -24,8 +26,8 @@ const PostReducer = (posts = {}, action) => {
 
     case DELETE_POST:
       return _.omit(posts, [action.payload]);
-    
-      //clear post object after sign-out
+
+    //clear post object after sign-out
     case SIGN_OUT:
       return {};
 

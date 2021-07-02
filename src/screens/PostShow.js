@@ -9,6 +9,8 @@ import { Link, Redirect } from "react-router-dom";
 import Loader from "../components/global/Loader";
 
 function PostShow({ post, fetchPost, match, User }) {
+  const [IsModalShowing, setModalShowing] = useState(false);
+
   const id = match.params.id;
   const preview = match.params.preview;
 
@@ -38,8 +40,8 @@ function PostShow({ post, fetchPost, match, User }) {
 
   const renderPostShowCotent = () => {
     return (
-      <div className="PostShow">
-        <Header />
+      <div className={`PostShow ${IsModalShowing ? "no-scroll" : ""}`}>
+        <Header setModalShowing={setModalShowing} />
         <div className="PostShow--postWrapper">
           {post ? (
             <Post data={post?.data} postId={post?.id} />

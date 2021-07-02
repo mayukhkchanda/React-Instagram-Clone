@@ -1,0 +1,63 @@
+.profile__body {
+  background: #fafafa;
+  max-width: 836px;
+  width: 95%;
+  padding: 16px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: helvetica;
+  letter-spacing: 0.375px;
+}
+
+.category--posts {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+}
+
+.category__icon svg {
+  height: 17px;
+  width: 17px;
+  margin-right: 10px;
+  padding-top: 3px;
+}
+
+.category__text {
+  font-size: 0.7995em;
+  font-weight: 600;
+}
+
+.body__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 52px;
+}
+
+.body__icon svg {
+  width: 65px;
+}
+
+.body__text--1 {
+  margin-top: 17px;
+  font-size: 1.79775em;
+  font-weight: 100;
+  color: #242424;
+}
+
+.body__text--2 {
+  margin-top: 6px;
+  font-size: 1.1075em;
+}
+
+.body__callToAction {
+  margin-top: 18px;
+  font-weight: 600;
+  font-size: 0.8975em;
+  color: #0095f6;
+  cursor: pointer;
+}
