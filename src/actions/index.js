@@ -3,6 +3,7 @@ import {
   SIGN_OUT,
   FETCH_POSTS,
   FETCH_POST,
+  UPDATE_POST,
   FETCH_USERS,
   FETCH_FOLLOWERS,
   FETCH_FOLLOWING,
@@ -585,3 +586,30 @@ export const unfollowUser =
       payload: updatedUserRef,
     });
   };
+
+/**Increments the comment count whenever user makes a new comment on a post with postId */
+export const incrementComment = (postId) => async (dispatch) => {
+  const PostUpdated = await db
+    .collection("posts")
+    .doc(postId)
+    .update({
+      comments: firebase.firestore.FieldValue.increment(1),
+    })
+    .then(async () => {
+      const PostRefUpdated = await db
+        .collection("posts")
+        .doc(postId)
+        .get()
+        .then((docRef) => {
+          return { id: docRef.id, data: docRef.data() };
+        });
+
+      return PostRefUpdated;
+    })
+    .catch((err) => console.log(err));
+
+  dispatch({
+    type: UPDATE_POST,
+    payload: PostUpdated,
+  });
+};

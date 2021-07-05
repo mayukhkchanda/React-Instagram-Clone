@@ -34,6 +34,8 @@ const App = ({ User, signin, signout }) => {
       } else {
         //User is signed out
         signout();
+
+        history.push("/");
       }
     });
     return () => {

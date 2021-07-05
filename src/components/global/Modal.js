@@ -14,9 +14,17 @@ const Modal = ({
   const renderModal = () => {
     return (
       <div class="user-unfollow-modal">
-        <div class="unfollow-overlay"></div>
+        <div
+          onClick={() => {
+            onCancelClick();
+          }}
+          class="unfollow-overlay"
+        ></div>
 
-        <div class="unfollow-modal-content">
+        <div
+          onClick={(event) => event.stopPropagation()}
+          class="unfollow-modal-content"
+        >
           {isUnFollowModal ? (
             <>
               <img
@@ -35,7 +43,13 @@ const Modal = ({
           <button onClick={onConfirmClick} class="confirm">
             {isUnFollowModal ? "Unfollow" : "Logout"}
           </button>
-          <button onClick={onCancelClick} class="cancel">
+          <button
+            onClick={() => {
+              console.log("cancel");
+              onCancelClick();
+            }}
+            class="cancel"
+          >
             Cancel
           </button>
         </div>

@@ -1,4 +1,4 @@
-.profile__photos {
+/* .profile__photos {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-column: center-start/center-end;
@@ -19,6 +19,92 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+ */
+
+.profile__photos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column: center-start/center-end;
+  max-width: 836px;
+  width: 98%;
+  margin: 0 auto;
+  grid-gap: 1em;
+  margin-top: 45px;
+  box-sizing: border-box;
+}
+
+.profile__photo {
+  position: relative;
+  width: 100%;
+  height: calc(98px + 10.775vw);
+  cursor: pointer;
+  background: #141414;
+}
+
+.profile__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.profile__photo--overlay {
+  background: #141414;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  z-index: 10;
+  transition: opacity 160ms ease;
+}
+
+.profile__photo:hover .profile__photo--overlay {
+  opacity: 0.4;
+}
+
+.profile__photo .icons__contianer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 13;
+  /*   background: #fafafa; */
+  opacity: 0;
+  transition: opacity 160ms ease;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile__photo:hover .icons__contianer {
+  opacity: 1;
+}
+
+svg.icons {
+  height: 21px;
+  width: 21px;
+  fill: #fff;
+  margin-right: 7px;
+}
+
+svg.icons.heart {
+  height: 20px;
+  width: 20px;
+}
+
+svg.icons.comment {
+  margin-left: 28px;
+}
+
+span.icon__text {
+  color: #fff;
+  font-family: helvetica;
 }
 
 @media all and (max-width: 600px) {

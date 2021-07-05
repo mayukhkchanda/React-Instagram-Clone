@@ -4,7 +4,6 @@ import Modal from "../global/Modal";
 import { authenticator } from "../../firebase";
 
 import { Link } from "react-router-dom";
-import history from "../../history";
 
 const ProfileHeader = ({
   User: { userId, username, following },
@@ -17,8 +16,6 @@ const ProfileHeader = ({
     setShowLogoutModal(false);
 
     authenticator.signOut();
-
-    history.push("/");
   };
 
   const handleCancelClick = () => {

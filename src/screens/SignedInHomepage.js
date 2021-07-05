@@ -41,6 +41,15 @@ function SignedInHomepage({ fetchPosts, updateUserInfo, posts, User }) {
     ]
   );
 
+  /**If user has uploaded his own post and not followed any user
+   * then safe-gaurds against loading the People Suggestion's.
+   */
+  useEffect(() => {
+    if (posts.length > 0) {
+      setIsPeopleSuggestionLoaded(false);
+    }
+  }, [posts.length]);
+
   const renderPosts = () => {
     /**If this people suggestion is loaded then in further renders don't proceed to fetchPosts */
     if (
@@ -108,7 +117,7 @@ function SignedInHomepage({ fetchPosts, updateUserInfo, posts, User }) {
         </div>
       </div> */}
 
-      {/* {ModalShow ? <FileUploadModal setModalShow={setModalShow} /> : null} */}
+      {/* ModalShow ? <FileUploadModal setModalShow={setModalShow} /> : null */}
 
       <div className="SignedInHomepage__posts">{renderPosts()}</div>
     </div>

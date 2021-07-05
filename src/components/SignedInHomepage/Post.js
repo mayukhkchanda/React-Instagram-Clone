@@ -5,7 +5,7 @@ import SpinnerSmall from "../global/SpinnerSmall";
 import { Link } from "react-router-dom";
 
 import { connect } from "react-redux";
-import { addLike, addUnlike } from "../../actions";
+import { addLike, addUnlike, incrementComment } from "../../actions";
 
 import firebase from "firebase";
 import { db } from "../../firebase";
@@ -23,6 +23,7 @@ function Post({
   allComments,
   addLike,
   addUnlike,
+  incrementComment,
 }) {
   const [EditedCaption, setEditedCaption] = useState(caption ?? "");
   const [ShowSpinner, setShowSpinner] = useState(false);
@@ -88,7 +89,7 @@ function Post({
     }
   }, [editCaptionInputRef]);
 
-  /**for comment set up a real-time listener */
+  /**for comment set up a real-time listener.  */
   useEffect(() => {
     let unsubscribe;
 
@@ -113,9 +114,9 @@ function Post({
     };
   }, [postId]);
 
+  /**set a timeout to denounce the user clicking on like button multiple time */
   useEffect(() => {
     setLikes(UserClicked && Liked ? Likes + 1 : Math.max(Likes - 1, 0));
-    /**set a timeout to denounce the user clicking on like button multiple time */
     let timeoutId = setTimeout(() => {
       setDenouncedLiked(Liked);
     }, 800);
@@ -269,14 +270,24 @@ function Post({
     ) : null;
   };
 
+  /* Also, updates the comments collection of this post and calls an action creator to increment count */
   const handleCommentFormSubmit = (comment) => {
     /**Not called in action creator as this would not change state */
-    db.collection("posts").doc(postId).collection("comments").add({
-      commentText: comment,
-      commentUser: Username,
-      CommentUserId: UserUID,
-      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-    });
+    db.collection("posts")
+      .doc(postId)
+      .collection("comments")
+      .add({
+        commentText: comment,
+        commentUser: Username,
+        CommentUserId: UserUID,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      })
+      .then(() => {
+        incrementComment(postId);
+      })
+      .catch((error) => {
+        console.error("Error adding document: ", error);
+      });
   };
 
   const renderComments = () => {
@@ -344,5 +355,6 @@ export default connect(
   {
     addLike,
     addUnlike,
+    incrementComment,
   }
 )(Post);

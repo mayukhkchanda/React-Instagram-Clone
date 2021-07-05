@@ -19,19 +19,19 @@
 }
 
 .unfollow-modal-content {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    z-index: 10;
-    background: #fafafa;
-    position: absolute;
-    top: 40%;
-    min-width: 275px;
-    border-radius: 1pc;
-    overflow: hidden;
-    margin: 0 auto;
-    left: calc(50% - 137px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  z-index: 20;
+  background: #fafafa;
+  position: absolute;
+  top: 40%;
+  min-width: 275px;
+  border-radius: 1pc;
+  overflow: hidden;
+  margin: 0 auto;
+  left: calc(50% - 137px);
 }
 
 .user-unfollow-modal .user-avatar {

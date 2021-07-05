@@ -93,4 +93,6 @@
   margin-top: 10px;
   font-weight: 400;
   color: #757575;
+  word-break: break-word;
+  max-width: 245px;
 }
