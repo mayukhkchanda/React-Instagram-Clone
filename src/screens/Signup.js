@@ -39,6 +39,7 @@ function Signup({ signin, createUserDoc }) {
               username: authUser.user.displayName,
               userId: authUser.user.uid,
               following: [authUser.user.uid],
+              profileUrl: "",
             });
 
             history.push("/");
@@ -57,6 +58,7 @@ function Signup({ signin, createUserDoc }) {
           <img
             src={`${process.env.PUBLIC_URL}/assets/images/instagram-logo.png`}
             className="form__logo"
+            alt="instagram-clone"
           />
         </Link>
 

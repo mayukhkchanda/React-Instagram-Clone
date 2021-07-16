@@ -61,3 +61,54 @@
   color: #0095f6;
   cursor: pointer;
 }
+
+/* user activity to be only shown in mobile view  */
+.header__activity--body {
+  max-width: inherit;
+  width: inherit;
+  margin: 0 auto;
+  display: none;
+  justify-content: space-around;
+}
+
+.activity--body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1.175em;
+}
+
+.border-bottom {
+  height: 1px;
+  width: 102vw;
+  color: #e2e2e2;
+  margin-top: 10px;
+  display: none;
+}
+
+.activity--body .number {
+  color: #111;
+  font-weight: 500;
+  margin-bottom: 3px;
+}
+
+.activity--body .type {
+  color: #8a8a8a;
+}
+
+@media all and (max-width: 600px) {
+  .profile__body {
+    padding: 5px;
+  }
+
+  .header__activity--body {
+    display: flex;
+  }
+  .border-bottom {
+    display: initial;
+  }
+
+  .category--posts {
+    margin-top: 16px;
+  }
+}

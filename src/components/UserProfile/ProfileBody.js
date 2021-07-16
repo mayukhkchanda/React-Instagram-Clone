@@ -4,8 +4,23 @@ import ProfilePhoto from "../../components/UserProfile/ProfilePhoto";
 
 import FileUploadModal from "../SignedInHomepage/FileUploadModal";
 
-const ProfileBody = ({ UserPosts }) => {
+import { Link } from "react-router-dom";
+import { createPost } from "../../actions";
+import { connect } from "react-redux";
+
+const ProfileBody = ({
+  User: { userId, following },
+  UserPosts,
+  createPost,
+  numFollowers,
+  numPosts,
+}) => {
   const [ShowModal, setShowModal] = useState(false);
+
+  /**callback called after image is uploaded sucessfully */
+  const onUploadSuccess = ({ Caption, downloadURL }) => {
+    createPost({ caption: Caption, imageUrl: downloadURL });
+  };
 
   const renderBodyContent = () => {
     if (!UserPosts || UserPosts?.length <= 0) {
@@ -24,13 +39,21 @@ const ProfileBody = ({ UserPosts }) => {
             Share your first photo
           </p>
 
-          {ShowModal ? <FileUploadModal setModalShow={setShowModal} /> : null}
+          {ShowModal ? (
+            <FileUploadModal
+              setModalShow={setShowModal}
+              onUploadSuccess={onUploadSuccess}
+              captionNeeded
+            />
+          ) : null}
         </div>
       );
     }
 
     const renderedPhotos = UserPosts.map((post) => {
-      return <ProfilePhoto key={post.id} postData={post.data} />;
+      return (
+        <ProfilePhoto key={post.id} postData={post.data} postId={post.id} />
+      );
     });
 
     return <div className="profile__photos"> {renderedPhotos} </div>;
@@ -38,6 +61,25 @@ const ProfileBody = ({ UserPosts }) => {
 
   return (
     <div className="profile__body">
+      <div className="header__activity--body">
+        <div className="activity--body">
+          <span className="number">{`${numPosts}`}</span>
+          <span className="type">posts</span>
+        </div>
+        <Link className="activity--body" to={`/${userId}/followers`}>
+          <span className="number">{`${
+            numFollowers > 0 ? numFollowers - 1 : 0
+          }`}</span>
+          <span className="type">followers</span>
+        </Link>
+        <Link className="activity--body" to={`/${userId}/following`}>
+          <span className="number">
+            {following.length > 0 ? following.length - 1 : "0"}
+          </span>
+          <span className="type">following</span>
+        </Link>
+      </div>
+      <hr className="border-bottom" />
       <div className="profile__category">
         <div className="category--posts">
           <span className="category__icon">
@@ -64,4 +106,6 @@ const ProfileBody = ({ UserPosts }) => {
   );
 };
 
-export default ProfileBody;
+export default connect(null, {
+  createPost,
+})(ProfileBody);

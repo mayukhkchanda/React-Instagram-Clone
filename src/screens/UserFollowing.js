@@ -34,7 +34,7 @@ const UserFollowing = ({ SignedUser, FollowingUsers = [], fetchFollowing }) => {
     const renderedList = FollowingUsers.filter(
       (follower) => follower.userId !== SignedUser.userId
     ).map((user) => {
-      return <User userData={user.userData} />;
+      return <User key={user.userId} userData={user.userData} />;
     });
 
     return renderedList;

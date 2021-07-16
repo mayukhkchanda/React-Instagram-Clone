@@ -1,16 +1,24 @@
 import React, { useState } from "react";
 import "./css/ProfileHeader.css";
 import Modal from "../global/Modal";
+import FileUploadModal from "../SignedInHomepage/FileUploadModal";
+
 import { authenticator } from "../../firebase";
 
 import { Link } from "react-router-dom";
 
+import { updateUserInfo } from "../../actions";
+import { connect } from "react-redux";
+
 const ProfileHeader = ({
-  User: { userId, username, following },
+  User: { userId, username, following, profileUrl },
   numPosts,
   numFollowers,
+  updateUserInfo,
 }) => {
   const [ShowLogoutModal, setShowLogoutModal] = useState(false);
+
+  const [ShowFileUploadModal, setShowFileUploadModal] = useState(false);
 
   const handleConfirmClick = () => {
     setShowLogoutModal(false);
@@ -22,11 +30,24 @@ const ProfileHeader = ({
     setShowLogoutModal(false);
   };
 
+  /**callback called after image is uploaded sucessfully */
+  const onUploadSuccess = ({ downloadURL }) => {
+    /**call upload user info action creator here. Need the feild being update and its new value */
+    updateUserInfo({ feildToUpdate: "profileUrl", newValue: downloadURL });
+  };
+
   return (
     <div className="profile__header">
       <div className="header__avatar">
         <img
-          src="https://www.kindpng.com/picc/m/105-1055656_account-user-profile-avatar-avatar-user-profile-icon.png"
+          onClick={() => {
+            setShowFileUploadModal(true);
+          }}
+          src={
+            profileUrl
+              ? profileUrl
+              : `${process.env.PUBLIC_URL}/assets/images/default_avatar.png`
+          }
           alt="user-avatar"
         />
       </div>
@@ -71,8 +92,17 @@ const ProfileHeader = ({
           isLogoutModal
         />
       ) : null}
+
+      {ShowFileUploadModal ? (
+        <FileUploadModal
+          setModalShow={setShowFileUploadModal}
+          onUploadSuccess={onUploadSuccess}
+        />
+      ) : null}
     </div>
   );
 };
 
-export default ProfileHeader;
+export default connect(null, {
+  updateUserInfo,
+})(ProfileHeader);

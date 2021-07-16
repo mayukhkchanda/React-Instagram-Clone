@@ -5,6 +5,7 @@ import {
   FETCH_POST,
   UPDATE_POST,
   FETCH_USERS,
+  FETCH_USER_DETAIL,
   FETCH_FOLLOWERS,
   FETCH_FOLLOWING,
   FETCH_POST_OF_USER,
@@ -34,6 +35,7 @@ export const signin = (user) => async (dispatch) => {
           email: doc.data().email,
           username: doc.data().username,
           following: doc.data().following,
+          profileUrl: doc.data().profileUrl,
         };
       } else {
         //new user just got created and user data is getting updated
@@ -42,6 +44,7 @@ export const signin = (user) => async (dispatch) => {
           email: user.email,
           username: user.username,
           following: [user.userId],
+          profileUrl: "",
         };
       }
     })
@@ -133,6 +136,7 @@ export const createPost = (post) => async (dispatch, getState) => {
       imageUrl: post.imageUrl,
       timestamp: serverTimestamp,
       LikedBy: [""],
+      comments: 0,
     })
     .then(async (docRef) => {
       //successfully posted
@@ -315,6 +319,33 @@ export const fetchUsers = () => async (dispatch, getState) => {
   });
 };
 
+/**Fetch user's info with the given user id */
+export const fetchUserDetail = (userId) => async (dispatch) => {
+  const userDetailRef = await db
+    .collection("users")
+    .doc(userId)
+    .get()
+    .then((doc) => {
+      if (doc.exists) {
+        return {
+          userId: doc.id,
+          email: doc.data().email,
+          username: doc.data().username,
+          following: doc.data().following,
+          profileUrl: doc.data().profileUrl,
+        };
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
+  dispatch({
+    type: FETCH_USER_DETAIL,
+    payload: userDetailRef,
+  });
+};
+
 //** Edit Caption of a post */
 export const editPost = (postId, newCaption) => async (dispatch) => {
   const updatedPostRef = await db
@@ -431,32 +462,42 @@ export const addUnlike = (postId) => async (dispatch, getState) => {
   });
 };
 
-/**Get user's following */
-export const updateUserInfo = (newUser) => async (dispatch, getState) => {
-  const userId = newUser.userId;
+/**Update the user's info like profile photo*/
+export const updateUserInfo =
+  ({ feildToUpdate, newValue }) =>
+  async (dispatch, getState) => {
+    const userId = getState().user.userId;
 
-  const userInfo = await db
-    .collection("users")
-    .doc(userId)
-    .get()
-    .then((doc) => {
-      if (doc.exists) {
-        return {
-          userId: doc.id,
-          email: doc.data().email,
-          username: doc.data().username,
-          following: doc.data().following,
-        };
-      }
+    const userInfo = await db
+      .collection("users")
+      .doc(userId)
+      .update({
+        profileUrl: newValue,
+      })
+      .then(async () => {
+        const updatedUserRef = await db
+          .collection("users")
+          .doc(userId)
+          .get()
+          .then((doc) => {
+            return {
+              userId: doc.id,
+              email: doc.data().email,
+              username: doc.data().username,
+              following: doc.data().following,
+              profileUrl: doc.data().profileUrl,
+            };
+          });
+        return updatedUserRef;
+      });
+
+    // console.log(userInfo);
+
+    dispatch({
+      type: UPDATE_USER_INFO,
+      payload: userInfo,
     });
-
-  console.log(userInfo);
-
-  dispatch({
-    type: UPDATE_USER_INFO,
-    payload: userInfo,
-  });
-};
+  };
 
 /**Create a new document in 'users' collection for this user */
 export const createUserDoc = (newUser) => async (dispatch) => {
@@ -468,10 +509,11 @@ export const createUserDoc = (newUser) => async (dispatch) => {
       email: newUser.email,
       username: newUser.username,
       following: newUser.following,
+      profileUrl: newUser.profileUrl,
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     })
     .then(async (docRef) => {
-      /**Migth not need this */
+      /**Migth not need this if timestamp is not needed */
       const userInfo = await db
         .collection("users")
         .doc(newUser.userId)
@@ -483,6 +525,7 @@ export const createUserDoc = (newUser) => async (dispatch) => {
               email: doc.data().email,
               username: doc.data().username,
               following: doc.data().following,
+              profileUrl: doc.data().profileUrl,
             };
           }
         })
@@ -524,6 +567,7 @@ export const followUser = (followersUserId) => async (dispatch, getState) => {
               email: doc.data().email,
               username: doc.data().username,
               following: doc.data().following,
+              profileUrl: doc.data().profileUrl,
             };
           } else {
             console.log("No such document!");
@@ -569,6 +613,7 @@ export const unfollowUser =
                 email: doc.data().email,
                 username: doc.data().username,
                 following: doc.data().following,
+                profileUrl: doc.data().profileUrl,
               };
             } else {
               console.log("No such document!");

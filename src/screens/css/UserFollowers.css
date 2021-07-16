@@ -63,3 +63,9 @@
   font-size: calc(0.975em + 0.2vw);
   font-weight: 500;
 }
+
+@media all and (max-width: 600px) {
+  .UserFollower__body {
+    margin: 66px auto;
+  }
+}

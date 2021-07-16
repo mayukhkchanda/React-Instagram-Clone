@@ -10,6 +10,7 @@ import {
 
 // const INIT_STATE =  { email: null, username: "...", userId: "..." };
 
+/**Reducer for signed-in user's state. Handles all updates to user state */
 const AuthReducer = (user = null, action) => {
   switch (action.type) {
     case SIGN_IN:

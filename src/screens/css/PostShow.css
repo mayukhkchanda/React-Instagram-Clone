@@ -35,7 +35,8 @@
 
 @media screen and (max-width: 600px) {
   .message {
-    max-width: calc(475px - 100px);
+    max-width: calc(450px - 34vw);
+    margin-bottom: 11vh;
   }
 
   .message .home {

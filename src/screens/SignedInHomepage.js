@@ -2,21 +2,29 @@ import React, { useEffect, useRef, useState } from "react";
 import Header from "../components/SignedInHomepage/Header";
 import Post from "../components/SignedInHomepage/Post";
 import "./css/SignedInHomepage.css";
-import FileUploadModal from "../components/SignedInHomepage/FileUploadModal";
+// import FileUploadModal from "../components/SignedInHomepage/FileUploadModal";
 import { areArraysDeepEqual } from "../utils/DeepEquals";
 
 import { Link } from "react-router-dom";
 
-import { fetchPosts, updateUserInfo } from "../actions";
+import { fetchPosts, updateUserInfo, fetchFollowing } from "../actions";
 import { connect } from "react-redux";
 import Loader from "../components/global/Loader";
 import PeopleSuggestion from "../components/global/PeopleSuggestion";
 
 /**Page shown to the user on '/' route when user is signed in*/
-function SignedInHomepage({ fetchPosts, updateUserInfo, posts, User }) {
+function SignedInHomepage({
+  fetchPosts,
+  updateUserInfo,
+  fetchFollowing,
+  posts,
+  User,
+  following = [],
+}) {
   const [IsModalShowing, setModalShowing] = useState(false);
   const [IsPeopleSuggestionLoaded, setIsPeopleSuggestionLoaded] =
     useState(false);
+  const [Following, setFollowing] = useState([]);
 
   const userFollowingRef = useRef(User.following);
 
@@ -30,6 +38,7 @@ function SignedInHomepage({ fetchPosts, updateUserInfo, posts, User }) {
     () => {
       // if (User.following.length > 0) {
       fetchPosts();
+      fetchFollowing();
       // }
 
       // return () => {
@@ -49,6 +58,12 @@ function SignedInHomepage({ fetchPosts, updateUserInfo, posts, User }) {
       setIsPeopleSuggestionLoaded(false);
     }
   }, [posts.length]);
+
+  useEffect(() => {
+    if (following.length > 0) {
+      setFollowing(following);
+    }
+  }, [following.length]);
 
   const renderPosts = () => {
     /**If this people suggestion is loaded then in further renders don't proceed to fetchPosts */
@@ -70,7 +85,13 @@ function SignedInHomepage({ fetchPosts, updateUserInfo, posts, User }) {
 
     const renderedPosts = posts.map((post) => {
       return (
-        <Post key={post.id} data={post.data} postId={post.id} isHomepage />
+        <Post
+          key={post.id}
+          data={post.data}
+          postId={post.id}
+          following={Following}
+          isHomepage
+        />
       );
     });
 
@@ -125,10 +146,15 @@ function SignedInHomepage({ fetchPosts, updateUserInfo, posts, User }) {
 }
 
 const mapStateToProps = (state) => {
-  return { posts: Object.values(state.posts), User: state.user };
+  return {
+    posts: Object.values(state.posts),
+    User: state.user,
+    following: state.following,
+  };
 };
 
 export default connect(mapStateToProps, {
   fetchPosts,
   updateUserInfo,
+  fetchFollowing,
 })(SignedInHomepage);

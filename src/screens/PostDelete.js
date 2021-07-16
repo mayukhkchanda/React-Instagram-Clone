@@ -10,7 +10,7 @@ import history from "../history";
 import { fetchPost, deletePost } from "../actions";
 import { connect } from "react-redux";
 
-function PostDelete({ post, fetchPost, deletePost, match }) {
+function PostDelete({ post, fetchPost, deletePost, match, User }) {
   const postId = match.params.id;
 
   const [IsModalShowing, setModalShowing] = useState(false);
@@ -35,7 +35,11 @@ function PostDelete({ post, fetchPost, deletePost, match }) {
       {post ? (
         <>
           <div className="PostDelete_Post">
-            <Post data={post?.data} postId={post?.id} />
+            <Post
+              data={post?.data}
+              postId={post?.id}
+              ProfilePhotoUrl={User.profileUrl}
+            />
           </div>
           <DeleteModal
             onBackgroundClick={onBackgroundClick}
@@ -50,7 +54,7 @@ function PostDelete({ post, fetchPost, deletePost, match }) {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  return { post: state.posts[ownProps.match.params.id] };
+  return { post: state.posts[ownProps.match.params.id], User: state.user };
 };
 
 export default connect(mapStateToProps, {

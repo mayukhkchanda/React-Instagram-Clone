@@ -5,7 +5,11 @@ import Modal from "../../components/global/Modal";
 import { followUser, unfollowUser } from "../../actions";
 import { connect } from "react-redux";
 
-const User = ({ userData: { userId, username }, followUser, unfollowUser }) => {
+const User = ({
+  userData: { userId, username, profileUrl },
+  followUser,
+  unfollowUser,
+}) => {
   const [IsFollowing, setFollowing] = useState(true);
 
   const [ShowUnfollowModal, setShowUnfollowModal] = useState(false);
@@ -33,7 +37,11 @@ const User = ({ userData: { userId, username }, followUser, unfollowUser }) => {
     <div className="user">
       <div className="user__info">
         <img
-          src="https://www.kindpng.com/picc/m/105-1055656_account-user-profile-avatar-avatar-user-profile-icon.png"
+          src={
+            profileUrl
+              ? profileUrl
+              : "https://www.kindpng.com/picc/m/105-1055656_account-user-profile-avatar-avatar-user-profile-icon.png"
+          }
           alt={`${username} avatar`}
         />
         <span className="info__name">{username}</span>

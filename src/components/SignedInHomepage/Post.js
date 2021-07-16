@@ -13,9 +13,11 @@ import CommentForm from "../global/CommentForm";
 
 function Post({
   postId,
-  data: { username, imageUrl, caption, userId, LikedBy, timestamp },
-  UserUID,
+  data: { username, imageUrl, caption, userId, LikedBy, timestamp }, //userId is the id of user who made the post
+  UserUID, // UserUID is signed-in user's id
   Username,
+  following = [],
+  ProfilePhotoUrl,
   isHomepage,
   editMode,
   handleCancelEdit,
@@ -43,7 +45,26 @@ function Post({
 
   const [PostDate, setPostDate] = useState(null);
 
+  /**profile image url of the user who made this post */
+  const [ProfileUrl, setProfileUrl] = useState(null);
+
   const editCaptionInputRef = useRef(null);
+
+  /**Set the profile url of the user who made this post from the following array's data */
+  useEffect(() => {
+    if (ProfilePhotoUrl) {
+      setProfileUrl(ProfilePhotoUrl);
+    } else if (following.length > 0) {
+      following
+        .filter((u) => u.userId === userId)
+        .forEach((u) => {
+          /**if there is an user object that matches the userId, then update the state */
+          if (u && u?.userData) {
+            setProfileUrl(u.userData.profileUrl);
+          }
+        });
+    }
+  }, [following.length]);
 
   /**Setting the date from epoch to UTC time */
   useEffect(() => {
@@ -327,7 +348,13 @@ function Post({
       <div className={`post__header ${editMode ? "edit-mode" : ""}`}>
         <div className="header__userInfo">
           <div className="header__avatar">
-            {username ? username[0].toUpperCase() : ""}
+            {ProfileUrl ? (
+              <img src={ProfileUrl} alt={`${username} avatar`} />
+            ) : username ? (
+              username[0].toUpperCase()
+            ) : (
+              ""
+            )}
           </div>
           <div className="header__name">{username}</div>
         </div>
@@ -350,7 +377,10 @@ function Post({
 
 export default connect(
   (state) => {
-    return { UserUID: state.user.userId, Username: state.user.username };
+    return {
+      UserUID: state.user.userId,
+      Username: state.user.username,
+    };
   },
   {
     addLike,

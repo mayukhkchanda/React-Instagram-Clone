@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import Homepage from "./screens/Homepage";
 import Signup from "./screens/Signup";
@@ -8,6 +8,7 @@ import PostShow from "./screens/PostShow";
 import PostEdit from "./screens/PostEdit";
 import PostDelete from "./screens/PostDelete";
 import PostComment from "./screens/PostComment";
+import MobileFooter from "./components/global/MobileFooter";
 
 import { authenticator } from "./firebase";
 
@@ -22,6 +23,8 @@ import UserFollowing from "./screens/UserFollowing";
 import NewFollowers from "./screens/NewFollowers";
 
 const App = ({ User, signin, signout }) => {
+  const [IsModalShowing, setModalShowing] = useState(false);
+
   useEffect(() => {
     const unsubscribe = authenticator.onAuthStateChanged(function (user) {
       if (user) {
@@ -45,7 +48,7 @@ const App = ({ User, signin, signout }) => {
 
   return (
     <Router history={history}>
-      <div className="app">
+      <div className={`app ${IsModalShowing ? "no-scroll" : ""}`}>
         <Switch>
           <Route
             path="/"
@@ -91,6 +94,8 @@ const App = ({ User, signin, signout }) => {
             component={User ? UserFollowing : Signin}
           />
         </Switch>
+
+        {User ? <MobileFooter setModalShowing={setModalShowing} /> : null}
       </div>
     </Router>
   );

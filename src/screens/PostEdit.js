@@ -9,7 +9,7 @@ import history from "../history";
 import { fetchPost, editPost } from "../actions";
 import { connect } from "react-redux";
 
-function PostEdit({ post, fetchPost, editPost, match }) {
+function PostEdit({ post, fetchPost, editPost, match, User }) {
   const postId = match.params.id;
 
   const [IsModalShowing, setModalShowing] = useState(false);
@@ -38,6 +38,7 @@ function PostEdit({ post, fetchPost, editPost, match }) {
             data={post?.data}
             postId={post?.id}
             editMode
+            ProfilePhotoUrl={User.profileUrl}
             handleCancelEdit={handleCancelEdit}
             handleConfirmEdit={handleConfirmEdit}
           />
@@ -50,7 +51,7 @@ function PostEdit({ post, fetchPost, editPost, match }) {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  return { post: state.posts[ownProps.match.params.id] };
+  return { post: state.posts[ownProps.match.params.id], User: state.user };
 };
 
 export default connect(mapStateToProps, {

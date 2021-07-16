@@ -4,7 +4,10 @@ import "./css/User.css";
 import { connect } from "react-redux";
 import { removeFollower } from "../../actions";
 
-const User = ({ userData: { username, userId }, removeFollower }) => {
+const User = ({
+  userData: { username, userId, profileUrl },
+  removeFollower,
+}) => {
   const [IsRemoved, setIsRemoved] = useState(false);
 
   const handleButtonClick = () => {
@@ -22,7 +25,11 @@ const User = ({ userData: { username, userId }, removeFollower }) => {
     <div className="user">
       <div className="user__info">
         <img
-          src="https://www.kindpng.com/picc/m/105-1055656_account-user-profile-avatar-avatar-user-profile-icon.png"
+          src={
+            profileUrl
+              ? profileUrl
+              : "https://www.kindpng.com/picc/m/105-1055656_account-user-profile-avatar-avatar-user-profile-icon.png"
+          }
           alt={`${username} avatar`}
         />
         <span className="info__name">{username}</span>

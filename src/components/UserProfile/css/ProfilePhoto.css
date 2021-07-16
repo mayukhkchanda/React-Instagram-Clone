@@ -109,6 +109,10 @@ span.icon__text {
 
 @media all and (max-width: 600px) {
   .profile__photos {
-    grid-gap: 2px;
+    grid-gap: 4px;
+  }
+
+  .profile__photo {
+    height: calc(80px + 10.775vw);
   }
 }

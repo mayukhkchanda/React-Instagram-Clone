@@ -1,9 +1,11 @@
 import React from "react";
 import "./css/ProfilePhoto.css";
 
-const ProfilePhoto = ({ postData }) => {
+import { Link } from "react-router-dom";
+
+const ProfilePhoto = ({ postData, postId }) => {
   return (
-    <figure className="profile__photo">
+    <Link to={`/show/view/${postId}`} className="profile__photo">
       <div className="profile__photo--overlay" />
       <div className="icons__contianer">
         <svg
@@ -28,7 +30,7 @@ const ProfilePhoto = ({ postData }) => {
         <span className="icon__text comment">{postData.comments}</span>
       </div>
       <img src={postData.imageUrl} alt={postData.caption} />
-    </figure>
+    </Link>
   );
 
   /*  return (

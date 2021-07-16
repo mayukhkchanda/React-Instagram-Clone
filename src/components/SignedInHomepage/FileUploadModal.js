@@ -5,8 +5,19 @@ import { storage } from "../../firebase";
 
 import { createPost } from "../../actions";
 import { connect } from "react-redux";
-
-function FileUploadModal({ setModalShow, createPost }) {
+/**
+ * @captionNeeded if true show input for caption else not.
+ * @onUploadSuccess callback for after successfull uploading of image. Sent the user data object as argument.
+ *  If @captionNeeded is true only then will caption data be sent with user data.
+ *  Argument passed to @onUploadSuccess is : {caption:...(if @captionNeeded is true), imageUrl: ...}
+ *
+ */
+function FileUploadModal({
+  setModalShow,
+  createPost,
+  onUploadSuccess,
+  captionNeeded,
+}) {
   const [Caption, setCaption] = useState("");
   const [File, setFile] = useState(null);
   const [ProgressPercent, setProgressPercent] = useState(0);
@@ -83,8 +94,17 @@ function FileUploadModal({ setModalShow, createPost }) {
         //Callback for successful uploads
         uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
           // console.log(downloadURL);
-          //call an async action creator for posting
-          createPost({ caption: Caption, imageUrl: downloadURL });
+          //call onUploadSuccess method with download url and caption if needed
+          // createPost({ caption: Caption, imageUrl: downloadURL });
+
+          const uploadData = { downloadURL: downloadURL };
+
+          // if caption is also needed then add that to the object else not
+          if (captionNeeded) {
+            uploadData["Caption"] = Caption;
+          }
+
+          onUploadSuccess(uploadData);
         });
       }
     );
@@ -98,15 +118,21 @@ function FileUploadModal({ setModalShow, createPost }) {
     return (
       <div className="modal" onClick={() => setModalShow(false)}>
         <div className="overlay"></div>
-        <div onClick={(e) => e.stopPropagation()} className="createPost--modal">
+        <div
+          onClick={(e) => e.stopPropagation()}
+          className={`createPost--modal ${captionNeeded ? "" : "no-caption"}`}
+        >
           <i className="fa fa-times" onClick={() => setModalShow(false)}></i>
-          <input
-            className="createPost--modal__input"
-            type="text"
-            placeholder="Enter a Caption"
-            value={Caption}
-            onChange={(event) => setCaption(event.target.value)}
-          />
+
+          {captionNeeded ? (
+            <input
+              className="createPost--modal__input"
+              type="text"
+              placeholder="Enter a Caption"
+              value={Caption}
+              onChange={(event) => setCaption(event.target.value)}
+            />
+          ) : null}
 
           <div className="file__upload--div">
             <label className="file__upload--fake" htmlFor="upload-photo">

@@ -4,16 +4,19 @@
   margin: 80px auto 0px;
   display: flex;
   align-items: center;
-  font-family: helvetica;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   padding: 16px;
   padding-bottom: 31px;
   border-bottom: 1px solid #cecece;
 }
 
-.header__avatar img {
+.profile__header .header__avatar img {
   width: 150px;
-  object-fit: contain;
+  height: 150px;
+  object-fit: cover;
   border-radius: 100%;
+  cursor: pointer;
 }
 
 .header__details {
@@ -50,4 +53,36 @@
 .header__activity span {
   font-size: calc(0.875em + 0.5vw);
   margin-right: calc(16px + 1.5vw);
+}
+
+@media all and (max-width: 600px) {
+  .profile__header {
+    max-width: 836px;
+    width: 100%;
+  }
+
+  .header__activity {
+    display: none;
+  }
+  .profile__header .header__avatar {
+    margin-left: 32px;
+  }
+  .profile__header .header__avatar img {
+    width: 50px;
+    height: 50px;
+  }
+  .header__details {
+    margin-left: 53px;
+  }
+
+  .header__userinfo h3 {
+    font-weight: 400;
+  }
+
+  .header__userinfo button svg {
+    width: 29px;
+    height: 29px;
+    padding-top: 2px;
+    padding-left: 4px;
+  }
 }

@@ -9,6 +9,7 @@ const UsersReducer = (users = INIT_STATE, action) => {
     case FETCH_USERS:
       return _.mapKeys(action.payload, "userId");
 
+    /**Add update User info action here  */
     case SIGN_OUT:
       return INIT_STATE;
 

@@ -3,7 +3,7 @@
 }
 
 .modal {
-  z-index: 5;
+  z-index: 20;
   position: absolute;
   top: 0;
   left: 0;
@@ -17,8 +17,8 @@
 
 .fa.fa-times {
   position: absolute;
-  top: 5px;
-  right: 20px;
+  top: 3px;
+  right: 25px;
   font-size: 1.5em;
   font-weight: 100;
   cursor: pointer;
@@ -37,8 +37,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 37px;
+  padding: 40px;
   margin-top: 20px;
+  z-index: 2;
+  background: #fafafa;
 }
 
 .overlay {
@@ -52,9 +54,10 @@
   z-index: -1;
 }
 
-.createPost--modal {
-  z-index: 2;
-  background: #eaeaea;
+.createPost--modal.no-caption {
+  height: 112px;
+  max-width: 330px;
+  padding: 40px;
 }
 
 .createPost--modal__input {
@@ -158,6 +161,6 @@
 
 @media screen and (max-width: 600px) {
   .createPost--modal .fa.fa-times {
-    right: 29px;
+    right: 46px;
   }
 }

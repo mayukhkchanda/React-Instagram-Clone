@@ -45,7 +45,9 @@ const PeopleSuggestion = ({
 };
 
 const mapStateToProps = (state) => {
-  return { SuggestedUsers: Object.values(state.suggestedUsers) };
+  return {
+    SuggestedUsers: Object.values(state.suggestedUsers),
+  };
 };
 
 export default connect(mapStateToProps, {

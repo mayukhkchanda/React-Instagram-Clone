@@ -98,11 +98,12 @@ a {
   flex-direction: column;
   align-items: center;
   background: #fafafa;
-
   margin-top: 60px;
+  margin-bottom: 25px;
   padding: 40px 0px;
 
-  font-family: helvetica;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
 .footer__checkmark {
@@ -182,5 +183,10 @@ a {
 
   .no-follow {
     padding: 20px;
+  }
+
+  .feed__footer {
+    margin-top: 20px;
+    margin-bottom: 40px;
   }
 }

@@ -15,7 +15,8 @@
 
 .UserFollower .user__info img {
   width: 30px;
-  object-fit: contain;
+  height: 30px;
+  object-fit: cover;
   border-radius: 50%;
   margin-right: 12px;
 }
@@ -28,4 +29,10 @@
   font-size: calc(0.575em + 0.5vw);
   border-radius: 3px;
   cursor: pointer;
+}
+
+@media all and (max-width: 600px) {
+  .UserFollower .user button {
+    padding: 6.5px;
+  }
 }

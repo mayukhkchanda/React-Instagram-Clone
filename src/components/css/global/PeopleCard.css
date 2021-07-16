@@ -44,7 +44,8 @@
 
 .people-avatar img {
   width: 60px;
-  object-fit: contain;
+  height: 60px;
+  object-fit: cover;
   border-radius: 50%;
   border: 1px solid lightgrey;
 }

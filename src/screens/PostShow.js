@@ -3,20 +3,35 @@ import Post from "../components/SignedInHomepage/Post";
 import Header from "../components/SignedInHomepage/Header";
 import "./css/PostShow.css";
 
-import { fetchPost } from "../actions";
+import { fetchPost, fetchUserDetail } from "../actions";
 import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 import Loader from "../components/global/Loader";
 
-function PostShow({ post, fetchPost, match, User }) {
+function PostShow({
+  post,
+  fetchPost,
+  fetchUserDetail,
+  match,
+  User,
+  following = [],
+}) {
   const [IsModalShowing, setModalShowing] = useState(false);
 
   const id = match.params.id;
   const preview = match.params.preview;
 
+  /**fetch the post that needs to be shown */
   useEffect(() => {
     fetchPost(id);
   }, [id]);
+
+  /**fetch the user's details who made this post */
+  useEffect(() => {
+    if (post?.id) {
+      fetchUserDetail(post.data.userId);
+    }
+  }, [post?.id]);
 
   const renderNotification = () => {
     let previewText = "";
@@ -44,7 +59,7 @@ function PostShow({ post, fetchPost, match, User }) {
         <Header setModalShowing={setModalShowing} />
         <div className="PostShow--postWrapper">
           {post ? (
-            <Post data={post?.data} postId={post?.id} />
+            <Post data={post?.data} postId={post?.id} following={following} />
           ) : (
             <>
               <Loader />
@@ -60,9 +75,14 @@ function PostShow({ post, fetchPost, match, User }) {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  return { post: state.posts[ownProps.match.params.id], User: state.user };
+  return {
+    post: state.posts[ownProps.match.params.id],
+    User: state.user,
+    following: state.following,
+  };
 };
 
 export default connect(mapStateToProps, {
   fetchPost,
+  fetchUserDetail,
 })(PostShow);

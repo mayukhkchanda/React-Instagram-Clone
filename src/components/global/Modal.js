@@ -13,34 +13,34 @@ const Modal = ({
 }) => {
   const renderModal = () => {
     return (
-      <div class="user-unfollow-modal">
+      <div className="user-unfollow-modal">
         <div
           onClick={() => {
             onCancelClick();
           }}
-          class="unfollow-overlay"
+          className="unfollow-overlay"
         ></div>
 
         <div
           onClick={(event) => event.stopPropagation()}
-          class="unfollow-modal-content"
+          className="unfollow-modal-content"
         >
           {isUnFollowModal ? (
             <>
               <img
-                class="user-avatar"
+                className="user-avatar"
                 src="https://www.instaclone.net/static/media/default-avatar.522560c8.png"
                 alt="Avatar"
               />
-              <p class="unfollow-text">{`Unfollow @${Username}?`}</p>
+              <p className="unfollow-text">{`Unfollow @${Username}?`}</p>
             </>
           ) : null}
 
           {isLogoutModal ? (
-            <p class="unfollow-text">Logout of Instagram ?</p>
+            <p className="unfollow-text">Logout of Instagram ?</p>
           ) : null}
 
-          <button onClick={onConfirmClick} class="confirm">
+          <button onClick={onConfirmClick} className="confirm">
             {isUnFollowModal ? "Unfollow" : "Logout"}
           </button>
           <button
@@ -48,7 +48,7 @@ const Modal = ({
               console.log("cancel");
               onCancelClick();
             }}
-            class="cancel"
+            className="cancel"
           >
             Cancel
           </button>

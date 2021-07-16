@@ -7,18 +7,21 @@ import { followUser, unfollowUser } from "../../actions";
 import { connect } from "react-redux";
 
 const PeopleCard = ({
-  userData: { username, userId },
+  userData: { username, userId, profileUrl },
   followUser,
   unfollowUser,
 }) => {
   const [UserPosts, setUserPosts] = useState([]);
   const [IsFollowing, setFollowing] = useState(false);
 
+  const [ComponentUnmounted, setComponentUnmounted] = useState(false);
+
   /**to show un-follow modal */
   const [ShowUnfollowModal, setShowUnfollowModal] = useState(false);
 
   useEffect(() => {
-    if (userId) {
+    /**prevent state update after the component has umounted */
+    if (!ComponentUnmounted && userId) {
       /**Fetch user's posts */
       db.collection("posts")
         .where("userId", "==", userId)
@@ -38,6 +41,10 @@ const PeopleCard = ({
           }
         });
     }
+
+    return () => {
+      setComponentUnmounted(true);
+    };
   }, [userId]);
 
   const renderPosts = () => {
@@ -88,7 +95,11 @@ const PeopleCard = ({
     <div className="people-card">
       <div className="people-avatar">
         <img
-          src="https://www.instaclone.net/static/media/default-avatar.522560c8.png"
+          src={
+            profileUrl
+              ? profileUrl
+              : "https://www.instaclone.net/static/media/default-avatar.522560c8.png"
+          }
           alt="Avatar"
         />
         <h3 className="people-username">{username}</h3>

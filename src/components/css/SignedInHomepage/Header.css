@@ -86,3 +86,17 @@
   width: 30px;
   cursor: pointer;
 }
+
+.nav__icon img {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+@media all and (max-width: 600px) {
+  span.nav__icon.profile {
+    display: none;
+  }
+}

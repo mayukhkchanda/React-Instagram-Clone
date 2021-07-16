@@ -32,7 +32,12 @@ const UserProfile = ({
           numFollowers={Followers?.length > 0 ? Followers.length : 0}
           numPosts={UserPosts?.length > 0 ? UserPosts.length : 0}
         />
-        <ProfileBody UserPosts={UserPosts} />
+        <ProfileBody
+          User={User}
+          UserPosts={UserPosts}
+          numFollowers={Followers?.length > 0 ? Followers.length : 0}
+          numPosts={UserPosts?.length > 0 ? UserPosts.length : 0}
+        />
       </div>
     </div>
   );
