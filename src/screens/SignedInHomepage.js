@@ -29,26 +29,14 @@ function SignedInHomepage({
   const userFollowingRef = useRef(User.following);
 
   if (!areArraysDeepEqual(userFollowingRef.current, User.following)) {
-    // console.log("No");
     userFollowingRef.current = User.following;
   }
 
   // console.log(User.following);
-  useEffect(
-    () => {
-      // if (User.following.length > 0) {
-      fetchPosts();
-      fetchFollowing();
-      // }
-
-      // return () => {
-      //   s;
-      // };
-    },
-    [
-      /* userFollowingRef.current */
-    ]
-  );
+  useEffect(() => {
+    fetchPosts();
+    fetchFollowing();
+  }, []);
 
   /**If user has uploaded his own post and not followed any user
    * then safe-gaurds against loading the People Suggestion's.
@@ -128,17 +116,6 @@ function SignedInHomepage({
   return (
     <div className={`SignedInHomepage ${IsModalShowing ? "no-scroll" : ""} `}>
       <Header setModalShowing={setModalShowing} />
-
-      {/* <div onClick={() => setModalShow(true)} className="ImageUpload">
-        <div className="createPost--wrapper">
-          <div className="createPost">
-            <i className="fa fa-edit"></i>
-            <span>Create a new post</span>
-          </div>
-        </div>
-      </div> */}
-
-      {/* ModalShow ? <FileUploadModal setModalShow={setModalShow} /> : null */}
 
       <div className="SignedInHomepage__posts">{renderPosts()}</div>
     </div>

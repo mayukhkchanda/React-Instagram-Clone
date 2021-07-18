@@ -8,9 +8,11 @@ Key Points:
 
 - The application supports **CRUD**(Create/Read/Update/Delete) operations for _Instagram's Post_ like functionality. Users can upload/Edit/Delete images as post using the application after they are signed in.
 
-- Developed an _Instagram news feed_ like feature allowing users to view posts made by other users.
+- Implemented Follow/Unfollow functionality among Users.
 
-- Developed Like/Un-Like and comment functionality allowing users to like/un-like and comment on posts.
+- Implemented an _Instagram news feed_ like feature allowing users to view posts made by other users.
+
+- Implemented Like/Un-Like and comment functionality allowing users to like/un-like and comment on posts.
 
 - The application requires users to sign in(or sign up) to view/upload images/posts.
 

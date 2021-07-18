@@ -34,9 +34,6 @@ const PeopleCard = ({
               // console.log(doc.id, " => ", doc.data());
               return { id: doc.id, data: doc.data() };
             });
-
-            // console.log(posts);
-
             setUserPosts(posts);
           }
         });

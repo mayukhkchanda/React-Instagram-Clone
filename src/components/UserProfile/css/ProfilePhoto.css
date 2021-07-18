@@ -1,27 +1,3 @@
-/* .profile__photos {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-column: center-start/center-end;
-  max-width: 836px;
-  width: 98%;
-  margin: 0 auto;
-  grid-gap: 1em;
-  margin-top: 45px;
-  box-sizing: border-box;
-}
-
-.profile__photo {
-  width: 100%;
-  height: calc(98px + 10.775vw);
-}
-
-.profile__photo img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
- */
-
 .profile__photos {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -72,7 +48,6 @@
   top: 0;
   left: 0;
   z-index: 13;
-  /*   background: #fafafa; */
   opacity: 0;
   transition: opacity 160ms ease;
   width: 100%;

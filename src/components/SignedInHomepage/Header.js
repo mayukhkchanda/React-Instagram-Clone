@@ -30,7 +30,7 @@ function Header({
         <div className="header_image">
           <Link to="/">
             <img
-              src="https://jonathanjeter.com/images/Instagram_Logo_Large.png"
+              src={`${process.env.PUBLIC_URL}/assets/images/instagram-logo.png`}
               alt="instagram-logo"
               className="header__image"
             />
@@ -74,22 +74,6 @@ function Header({
       </div>
     );
   };
-
-  // return (
-  //   <div className="SignedInHomepage__header">
-  //     <Link to="/">
-  //       <img
-  //         className="SignedInHomepage__logo"
-  //         src={`${process.env.PUBLIC_URL}/assets/images/instagram-logo-header-small.png`}
-  //         alt="ig-logo"
-  //       />
-  //     </Link>
-  //     <button onClick={signOut} className="SignedInHomepage_auth-button">
-  //       Log Out
-  //     </button>
-  //   </div>
-  // );
-
   return renderHeader();
 }
 

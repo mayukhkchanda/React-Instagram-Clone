@@ -1,8 +1,6 @@
 import React, { useEffect } from "react";
 import "../css/global/PeopleSuggestion.css";
 
-// import { Link } from "react-router-dom";
-
 import { fetchUsers } from "../../actions";
 import { connect } from "react-redux";
 import PeopleCard from "./PeopleCard";
@@ -22,7 +20,6 @@ const PeopleSuggestion = ({
     if (SuggestedUsers.length === 0) return null;
 
     const renderedList = SuggestedUsers.map((suggestedUser) => {
-      //   console.log(suggestedUser);
       return (
         <PeopleCard
           key={suggestedUser.userId}

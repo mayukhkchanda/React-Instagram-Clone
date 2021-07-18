@@ -3,7 +3,6 @@ import ReactDOM from "react-dom";
 import "../css/SignedInHomepage/FileUploadModal.css";
 import { storage } from "../../firebase";
 
-import { createPost } from "../../actions";
 import { connect } from "react-redux";
 /**
  * @captionNeeded if true show input for caption else not.
@@ -12,12 +11,7 @@ import { connect } from "react-redux";
  *  Argument passed to @onUploadSuccess is : {caption:...(if @captionNeeded is true), imageUrl: ...}
  *
  */
-function FileUploadModal({
-  setModalShow,
-  createPost,
-  onUploadSuccess,
-  captionNeeded,
-}) {
+function FileUploadModal({ setModalShow, onUploadSuccess, captionNeeded }) {
   const [Caption, setCaption] = useState("");
   const [File, setFile] = useState(null);
   const [ProgressPercent, setProgressPercent] = useState(0);
@@ -93,10 +87,7 @@ function FileUploadModal({
       () => {
         //Callback for successful uploads
         uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-          // console.log(downloadURL);
-          //call onUploadSuccess method with download url and caption if needed
-          // createPost({ caption: Caption, imageUrl: downloadURL });
-
+          //call onUploadSuccess method with download url and caption(if needed)
           const uploadData = { downloadURL: downloadURL };
 
           // if caption is also needed then add that to the object else not
@@ -175,6 +166,4 @@ function FileUploadModal({
   );
 }
 
-export default connect(null, {
-  createPost,
-})(FileUploadModal);
+export default connect(null, {})(FileUploadModal);

@@ -20,9 +20,6 @@ const UserProfile = ({
     fetchFollowers();
   }, [User.userId]);
 
-  // console.log(UserPosts);
-  // console.log(Followers);
-
   return (
     <div className={`UserProfile ${IsModalShowing ? "no-scroll" : ""}`}>
       <Header setModalShowing={setIsModalShowing} />

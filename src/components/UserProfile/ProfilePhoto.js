@@ -32,12 +32,6 @@ const ProfilePhoto = ({ postData, postId }) => {
       <img src={postData.imageUrl} alt={postData.caption} />
     </Link>
   );
-
-  /*  return (
-    <figure className="profile__photo">
-      <img src={postData.imageUrl} alt={postData.caption} />
-    </figure>
-  ); */
 };
 
 export default ProfilePhoto;

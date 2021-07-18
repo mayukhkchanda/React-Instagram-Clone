@@ -10,13 +10,13 @@ function HomepageButton({ btnText }) {
       className="rainbow-button"
     >
       <img
-        src="https://static.xx.fbcdn.net/rsrc.php/yT/r/vSKk5zscGX8.svg"
+        src={`${process.env.PUBLIC_URL}/assets/images/rainbow-button-image.svg`}
         className="image hover"
         alt=""
       />
       <img
         className="image "
-        src="https://static.xx.fbcdn.net/rsrc.php/yZ/r/Sls_tmeuSGE.svg"
+        src={`${process.env.PUBLIC_URL}/assets/images/rainbow-button-image-border.svg`}
         alt=""
       />
       <span className="button-text">{btnText}</span>

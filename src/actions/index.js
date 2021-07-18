@@ -52,8 +52,6 @@ export const signin = (user) => async (dispatch) => {
       console.log(error);
     });
 
-  // console.log(userRef);
-
   dispatch({
     type: SIGN_IN,
     payload: userRef,
@@ -75,21 +73,9 @@ export const signout = () => {
 
 /** Fetch posts of only the people who the user is following*/
 export const fetchPosts = () => async (dispatch, getState) => {
-  // const posts = await db
-  //   .collection("posts")
-  //   .orderBy("timestamp", "desc") //get the lastest created post
-  //   .get()
-  //   .then((querySnapshot) => {
-  //     return querySnapshot.docs.map((doc) => {
-  //       return { id: doc.id, data: doc.data() };
-  //     });
-  //   });
-
   const following = getState().user.following;
 
-  // console.log(following);
-
-  // Invalid Query. A non-empty array is required for 'in' filters
+  // Invalid Query-> A non-empty array is required for 'in' filters
   const posts = db
     .collection("posts")
     .where("userId", "in", following)
@@ -97,12 +83,7 @@ export const fetchPosts = () => async (dispatch, getState) => {
     .limit(5)
     .get()
     .then(async (querySnapshot) => {
-      /* querySnapshot.forEach((doc) => {
-        console.log(doc.id, " => ", doc.data());
-      }); */
-      // console.log(querySnapshot);
       const allPosts = await querySnapshot.docs.map((doc) => {
-        // console.log(doc.id, " => ", doc.data());
         return { id: doc.id, data: doc.data() };
       });
 
@@ -112,7 +93,6 @@ export const fetchPosts = () => async (dispatch, getState) => {
 
   //getting Promise back
   Promise.resolve(posts).then(function (value) {
-    // console.log(value);
     dispatch({
       type: FETCH_POSTS,
       payload: value,
@@ -165,7 +145,7 @@ export const createPost = (post) => async (dispatch, getState) => {
 };
 
 /** Fetch a particular post with post id */
-export const fetchPost = (id) => async (dispatch, getState) => {
+export const fetchPost = (id) => async (dispatch) => {
   const post = await db
     .collection("posts")
     .doc(id)
@@ -196,7 +176,6 @@ export const fetchPostOfUserWithId = (userId) => async (dispatch) => {
       if (querySnapshot.docs.length > 0) {
         /**map all posts objects to an array */
         const posts = querySnapshot.docs.map((doc) => {
-          // console.log(doc.id, " => ", doc.data());
           return { id: doc.id, data: doc.data() };
         });
         return posts;
@@ -205,8 +184,6 @@ export const fetchPostOfUserWithId = (userId) => async (dispatch) => {
         return [];
       }
     });
-
-  // console.log(userPosts);
 
   dispatch({
     type: FETCH_POST_OF_USER,
@@ -227,7 +204,6 @@ export const fetchFollowers = () => async (dispatch, getState) => {
       if (querySnapshot.docs.length > 0) {
         /**map all user documents to any array */
         const Followers = querySnapshot.docs.map((doc) => {
-          // console.log(doc.id, " => ", doc.data());
           return { userId: doc.id, userData: doc.data() };
         });
         return Followers;
@@ -256,7 +232,7 @@ export const removeFollower = (userId) => async (dispatch, getState) => {
     .update({
       following: firebase.firestore.FieldValue.arrayRemove(signedInUserId),
     })
-    .then(() => console.log("User removed successfully"))
+    .then(() => {})
     .catch((err) => console.log(err));
 };
 
@@ -273,7 +249,6 @@ export const fetchFollowing = () => async (dispatch, getState) => {
       if (querySnapshot.docs.length > 0) {
         /**map all user docs to an array */
         const Followings = querySnapshot.docs.map((doc) => {
-          // console.log(doc.id, " => ", doc.data());
           return { userId: doc.id, userData: doc.data() };
         });
         return Followings;
@@ -301,7 +276,6 @@ export const fetchUsers = () => async (dispatch, getState) => {
     .get()
     .then(async (querySnapshot) => {
       const usersRef = await querySnapshot.docs.map((doc) => {
-        // console.log(doc.id, " => ", doc.data());
         return { userId: doc.id, userData: doc.data() };
       });
 
@@ -310,8 +284,6 @@ export const fetchUsers = () => async (dispatch, getState) => {
     .catch((error) => {
       console.log("Error getting documents: ", error);
     });
-
-  // console.log(users);
 
   dispatch({
     type: FETCH_USERS,
@@ -464,7 +436,7 @@ export const addUnlike = (postId) => async (dispatch, getState) => {
 
 /**Update the user's info like profile photo*/
 export const updateUserInfo =
-  ({ feildToUpdate, newValue }) =>
+  ({ newValue }) =>
   async (dispatch, getState) => {
     const userId = getState().user.userId;
 
@@ -490,8 +462,6 @@ export const updateUserInfo =
           });
         return updatedUserRef;
       });
-
-    // console.log(userInfo);
 
     dispatch({
       type: UPDATE_USER_INFO,
@@ -574,15 +544,11 @@ export const followUser = (followersUserId) => async (dispatch, getState) => {
           }
         });
 
-      // console.log(userRef);
-
       return userRef;
     })
     .catch((error) => {
       console.error("Error updating document: ", error);
     });
-
-  // console.log(updatedUserRef);
 
   dispatch({
     type: FOLLOW_USER,

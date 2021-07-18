@@ -85,10 +85,6 @@ a {
 }
 
 /*Feed footer css*/
-* {
-  margin: 0;
-  padding: 0;
-}
 
 .feed__footer {
   max-width: 500px;

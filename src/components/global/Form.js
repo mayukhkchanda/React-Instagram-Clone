@@ -96,7 +96,6 @@ function Form({
         handleSubmit,
         isSubmitting,
       }) => {
-        //console.log(errors);
         return (
           <form onSubmit={handleSubmit} className="form">
             {showUsernameFeild ? (
