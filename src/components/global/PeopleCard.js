@@ -95,7 +95,7 @@ const PeopleCard = ({
           src={
             profileUrl
               ? profileUrl
-              : "https://www.instaclone.net/static/media/default-avatar.522560c8.png"
+              : `${process.env.PUBLIC_URL}/assets/images/default_avatar_people.png`
           }
           alt="Avatar"
         />
